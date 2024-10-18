@@ -1,84 +1,60 @@
-import { useState } from 'react';
-import DropzoneComponent from './components/DropzoneComponent';
-import ImageCanvas from './components/ImageCanvas';
+import React, { useCallback, useState } from 'react';
+import { useDropzone } from 'react-dropzone';
+import './App.css';
 
-const App = () => {
-  const [imageSrc, setImageSrc] = useState(null); // State to store the image source
-  const [filters, setFilters] = useState({
-    blur: 0,
-    brightness: 100,
-    contrast: 100,
-    saturation: 100,
+function App() {
+  const [image, setImage] = useState(null);
+  const [filter, setFilter] = useState('none');
+
+  // Handle the file drop
+  const onDrop = useCallback((acceptedFiles) => {
+    const file = acceptedFiles[0];
+    if (file && file.type.startsWith('image/')) {
+      const reader = new FileReader();
+      reader.onload = () => {
+        setImage(reader.result);
+      };
+      reader.readAsDataURL(file);
+    }
+  }, []);
+
+  const { getRootProps, getInputProps } = useDropzone({
+    onDrop,
+    accept: 'image/*', // Only accept images
+    multiple: false,   // Accept only one image at a time
   });
 
-  // Handle slider change for blur value
-  const handleFilterChange = (e) => {
-    const { name, value } = e.target;
-    setFilters((prevFilters) => ({
-      ...prevFilters,
-      [name]: value,
-    }));
-  };
-
   return (
-    <div>
-      <DropzoneComponent setImageSrc={setImageSrc} />
+    <div className="App">
+      <h1>React Dropzone Image Filter App</h1>
+      {/* Dropzone */}
+      <div {...getRootProps({ className: 'dropzone' })}>
+        <input {...getInputProps()} />
+        <p>Drag 'n' drop an image here, or click to select one</p>
+      </div>
 
-      {imageSrc && (
-        <>
-          <h4>Adjust Filters</h4>
-          {/* Sliders for each filter */}
-          <div>
-            <label>Blur: {filters.blur}px</label>
-            <input
-              type="range"
-              min="0"
-              max="10"
-              name="blur"
-              value={filters.blur}
-              onChange={handleFilterChange}
-            />
-          </div>
-          <div>
-            <label>Brightness: {filters.brightness}%</label>
-            <input
-              type="range"
-              min="0"
-              max="200"
-              name="brightness"
-              value={filters.brightness}
-              onChange={handleFilterChange}
-            />
-          </div>
-          <div>
-            <label>Contrast: {filters.contrast}%</label>
-            <input
-              type="range"
-              min="0"
-              max="200"
-              name="contrast"
-              value={filters.contrast}
-              onChange={handleFilterChange}
-            />
-          </div>
-          <div>
-            <label>Saturation: {filters.saturation}%</label>
-            <input
-              type="range"
-              min="0"
-              max="200"
-              name="saturation"
-              value={filters.saturation}
-              onChange={handleFilterChange}
-            />
-          </div>
-
-          {/* ImageCanvas receives the image and filters */}
-          <ImageCanvas imageSrc={imageSrc} filters={filters} />
-        </>
+      {/* Image canvas */}
+      {image && (
+        <div className="canvas-container">
+          <canvas
+            id="imageCanvas"
+            style={{
+              backgroundImage: `url(${image})`,
+              filter: filter, // Apply selected filter
+            }}
+          ></canvas>
+        </div>
       )}
+
+      {/* Filter controls */}
+      <div className="filters">
+        <button onClick={() => setFilter('none')}>None</button>
+        <button onClick={() => setFilter('grayscale(100%)')}>Grayscale</button>
+        <button onClick={() => setFilter('sepia(100%)')}>Sepia</button>
+        <button onClick={() => setFilter('brightness(150%)')}>Brightness</button>
+      </div>
     </div>
   );
-};
+}
 
 export default App;

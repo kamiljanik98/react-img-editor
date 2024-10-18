@@ -49,15 +49,15 @@ const App = () => {
       const context = canvas.getContext('2d');
       const image = new Image();
       image.onload = () => {
-        // Clear the canvas before drawing the new image
+        console.log('Canvas is being updated');
         context.clearRect(0, 0, canvas.width, canvas.height);
-        context.filter = `blur(${filters.blur}px) brightness(${filters.brightness}%) contrast(${filters.contrast}%) saturate(${filters.saturation}%)`;        // Draw the uploaded image on the canvas
+        context.filter = `blur(${filters.blur}px) brightness(${filters.brightness}%) contrast(${filters.contrast}%) saturate(${filters.saturation}%)`;
         context.drawImage(image, 0, 0, canvas.width, canvas.height);
       };
-
       image.src = imageSrc;
     }
   }, [imageSrc, filters]);
+  
 
   // Mapping accepted files inside file browser display
   const acceptedFileItems = acceptedFiles.map(file => (

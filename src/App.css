@@ -52,6 +52,17 @@ label {
   margin-bottom: 10px;
 }
 
+
 input[type="range"] {
-  width: 200px;
+  min-width: 200px;
+  touch-action: manipulation;
+}
+
+input[type="range"] {
+  appearance: none;
+  touch-action: manipulation;
+}
+
+input[type="range"] {
+  transform: translateZ(0);
 }

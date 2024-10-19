@@ -295,66 +295,11 @@ canvas {
         color: $grayscale__300; // Use a variable for the color
       }
     }
+    input [type="range"] {
 
-    input[type="range"] {
-      appearance: none; // Remove default styling in WebKit browsers
-      width: 100%; // Full width
-      height: 6px; // Track height
-      border-radius: 5px; // Rounded track
-      background: $grayscale__700; // Track color
-      outline: none; // Remove outline on focus
-      transition: background 0.3s; // Smooth transition for hover
-
-      &:hover {
-        background: $grayscale__600; // Darker color on hover
-      }
-
-      // WebKit thumb styles
-      &::-webkit-slider-thumb {
-        -webkit-appearance: none; // Remove default thumb
-        appearance: none; // Remove default thumb
-        width: 14px; // Thumb width
-        height: 14px; // Thumb height
-        border-radius: 50%; // Round thumb
-        background: $blue; // Thumb color
-        cursor: pointer; // Pointer on hover
-        transition: background 0.3s; // Smooth transition for hover
-        outline: 2px solid $grayscale__400;
-        outline-offset: -1px;
-
-        &:hover {
-          background: lighten($blue, 10%); // Lighten thumb on hover
-        }
-      }
-
-      // Firefox thumb styles
-      &::-moz-range-thumb {
-        width: 16px; // Thumb width
-        height: 16px; // Thumb height
-        border-radius: 50%; // Round thumb
-        background: $blue; // Thumb color
-        cursor: pointer; // Pointer on hover
-        transition: background 0.3s; // Smooth transition for hover
-
-        &:hover {
-          background: lighten($blue, 10%); // Lighten thumb on hover
-        }
-      }
-
-      // Internet Explorer thumb styles
-      &::-ms-thumb {
-        width: 16px; // Thumb width
-        height: 16px; // Thumb height
-        border-radius: 50%; // Round thumb
-        background: $blue; // Thumb color
-        cursor: pointer; // Pointer on hover
-        transition: background 0.3s; // Smooth transition for hover
-
-        &:hover {
-          background: lighten($blue, 10%); // Lighten thumb on hover
-        }
-      }
+      touch-action: pan-x; /* or pan-x if needed */
     }
+
   }
 }
 

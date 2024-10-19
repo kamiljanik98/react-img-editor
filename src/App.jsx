@@ -1,5 +1,4 @@
-// App.jsx
-import  { useState, useRef } from "react";
+import { useState, useRef } from "react";
 import { useDropzone } from "react-dropzone";
 import "./App.css";
 
@@ -21,6 +20,7 @@ function App() {
     const reader = new FileReader();
     reader.onload = () => {
       setImage(reader.result);
+      applyFilters(reader.result); // Apply filters when the image is loaded
     };
     reader.readAsDataURL(file);
   };
@@ -30,11 +30,11 @@ function App() {
     accept: "image/*",
   });
 
-  const applyFilters = () => {
+  const applyFilters = (imageSrc) => {
     const canvas = canvasRef.current;
     const ctx = canvas.getContext("2d");
     const img = new Image();
-    img.src = image;
+    img.src = imageSrc || image; // Use either the new image or the already loaded one
     img.onload = () => {
       canvas.width = img.width;
       canvas.height = img.height;
@@ -56,70 +56,76 @@ function App() {
 
   return (
     <div className="editor-container">
-      <canvas ref={canvasRef} className="image-canvas" />
-
+      {/* Dropzone always visible */}
       <div {...getRootProps({ className: "dropzone" })}>
         <input {...getInputProps()} />
         <p>Drag n drop an image here, or click to select one from your device</p>
       </div>
 
-      <div className="controls">
-        <label>
-          Brightness
-          <input
-            type="range"
-            name="brightness"
-            min="0"
-            max="200"
-            value={filters.brightness}
-            onChange={handleChange}
-          />
-        </label>
-        <label>
-          Contrast
-          <input
-            type="range"
-            name="contrast"
-            min="0"
-            max="200"
-            value={filters.contrast}
-            onChange={handleChange}
-          />
-        </label>
-        <label>
-          Saturate
-          <input
-            type="range"
-            name="saturate"
-            min="0"
-            max="200"
-            value={filters.saturate}
-            onChange={handleChange}
-          />
-        </label>
-        <label>
-          Sepia
-          <input
-            type="range"
-            name="sepia"
-            min="0"
-            max="100"
-            value={filters.sepia}
-            onChange={handleChange}
-          />
-        </label>
-        <label>
-          Grayscale
-          <input
-            type="range"
-            name="grayscale"
-            min="0"
-            max="100"
-            value={filters.grayscale}
-            onChange={handleChange}
-          />
-        </label>
-      </div>
+      {/* Conditionally render the canvas and controls only if an image is uploaded */}
+      {image && (
+        <>
+          <canvas ref={canvasRef} className="image-canvas" />
+
+          <div className="controls">
+            <label>
+              Brightness
+              <input
+                type="range"
+                name="brightness"
+                min="0"
+                max="200"
+                value={filters.brightness}
+                onChange={handleChange}
+              />
+            </label>
+            <label>
+              Contrast
+              <input
+                type="range"
+                name="contrast"
+                min="0"
+                max="200"
+                value={filters.contrast}
+                onChange={handleChange}
+              />
+            </label>
+            <label>
+              Saturate
+              <input
+                type="range"
+                name="saturate"
+                min="0"
+                max="200"
+                value={filters.saturate}
+                onChange={handleChange}
+              />
+            </label>
+            <label>
+              Sepia
+              <input
+                type="range"
+                name="sepia"
+                min="0"
+                max="100"
+                value={filters.sepia}
+                onChange={handleChange}
+              />
+            </label>
+            <label>
+              Grayscale
+              <input
+                type="range"
+                name="grayscale"
+                min="0"
+                max="100"
+                value={filters.grayscale}
+                onChange={handleChange}
+              />
+            </label>
+          </div>
+        </>
+      )}
     </div>
   );
 }

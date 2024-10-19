@@ -1,91 +1,125 @@
-import React, { useCallback, useState } from 'react';
-import { useDropzone } from 'react-dropzone';
-import './App.css';
+// App.jsx
+import  { useState, useRef } from "react";
+import { useDropzone } from "react-dropzone";
+import "./App.css";
 
 function App() {
   const [image, setImage] = useState(null);
-  const [grayscale, setGrayscale] = useState(0);
-  const [sepia, setSepia] = useState(0);
-  const [brightness, setBrightness] = useState(100);
+  const [filters, setFilters] = useState({
+    brightness: 100,
+    contrast: 100,
+    saturate: 100,
+    sepia: 0,
+    grayscale: 0,
+  });
 
-  // Handle the file drop
-  const onDrop = useCallback((acceptedFiles) => {
+  const canvasRef = useRef(null);
+
+  // Handle file drop
+  const onDrop = (acceptedFiles) => {
     const file = acceptedFiles[0];
-    if (file && file.type.startsWith('image/')) {
-      const reader = new FileReader();
-      reader.onload = () => {
-        setImage(reader.result);
-      };
-      reader.readAsDataURL(file);
-    }
-  }, []);
+    const reader = new FileReader();
+    reader.onload = () => {
+      setImage(reader.result);
+    };
+    reader.readAsDataURL(file);
+  };
 
   const { getRootProps, getInputProps } = useDropzone({
     onDrop,
-    accept: 'image/*', // Only accept images
-    multiple: false,   // Accept only one image at a time
+    accept: "image/*",
   });
 
-  // Generate the filter CSS string based on slider values
-  const filter = `grayscale(${grayscale}%) sepia(${sepia}%) brightness(${brightness}%)`;
+  const applyFilters = () => {
+    const canvas = canvasRef.current;
+    const ctx = canvas.getContext("2d");
+    const img = new Image();
+    img.src = image;
+    img.onload = () => {
+      canvas.width = img.width;
+      canvas.height = img.height;
+      ctx.filter = `
+        brightness(${filters.brightness}%)
+        contrast(${filters.contrast}%)
+        saturate(${filters.saturate}%)
+        sepia(${filters.sepia}%)
+        grayscale(${filters.grayscale}%)
+      `;
+      ctx.drawImage(img, 0, 0);
+    };
+  };
+
+  const handleChange = (e) => {
+    setFilters({ ...filters, [e.target.name]: e.target.value });
+    applyFilters();
+  };
 
   return (
-    <div className="App">
-      <h1>React Dropzone Image Filter App</h1>
-      {/* Dropzone */}
-      <div {...getRootProps({ className: 'dropzone' })}>
+    <div className="editor-container">
+      <canvas ref={canvasRef} className="image-canvas" />
+
+      <div {...getRootProps({ className: "dropzone" })}>
         <input {...getInputProps()} />
-        <p>Drag 'n' drop an image here, or click to select one</p>
+        <p>Drag n drop an image here, or click to select one from your device</p>
       </div>
 
-      {/* Image canvas */}
-      {image && (
-        <div className="canvas-container">
-          <canvas
-            id="imageCanvas"
-            style={{
-              backgroundImage: `url(${image})`,
-              filter: filter, // Apply dynamic filters from sliders
-            }}
-          ></canvas>
-        </div>
-      )}
-
-      {/* Filter controls with sliders */}
-      {image && (
-        <div className="sliders">
-          <div>
-            <label>Grayscale: {grayscale}%</label>
-            <input
-              type="range"
-              min="0"
-              max="100"
-              value={grayscale}
-              onChange={(e) => setGrayscale(e.target.value)}
-            />
-          </div>
-          <div>
-            <label>Sepia: {sepia}%</label>
-            <input
-              type="range"
-              min="0"
-              max="100"
-              value={sepia}
-              onChange={(e) => setSepia(e.target.value)}
-            />
-          </div>
-          <div>
-            <label>Brightness: {brightness}%</label>
-            <input
-              type="range"
-              min="50"
-              max="200"
-              value={brightness}
-              onChange={(e) => setBrightness(e.target.value)}
-            />
-          </div>
-        </div>
-      )}
+      <div className="controls">
+        <label>
+          Brightness
+          <input
+            type="range"
+            name="brightness"
+            min="0"
+            max="200"
+            value={filters.brightness}
+            onChange={handleChange}
+          />
+        </label>
+        <label>
+          Contrast
+          <input
+            type="range"
+            name="contrast"
+            min="0"
+            max="200"
+            value={filters.contrast}
+            onChange={handleChange}
+          />
+        </label>
+        <label>
+          Saturate
+          <input
+            type="range"
+            name="saturate"
+            min="0"
+            max="200"
+            value={filters.saturate}
+            onChange={handleChange}
+          />
+        </label>
+        <label>
+          Sepia
+          <input
+            type="range"
+            name="sepia"
+            min="0"
+            max="100"
+            value={filters.sepia}
+            onChange={handleChange}
+          />
+        </label>
+        <label>
+          Grayscale
+          <input
+            type="range"
+            name="grayscale"
+            min="0"
+            max="100"
+            value={filters.grayscale}
+            onChange={handleChange}
+          />
+        </label>
+      </div>
     </div>
   );
 }

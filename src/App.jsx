@@ -29,11 +29,23 @@ const App = () => {
           <div>
             <label>
               Blur:
-              <input type="range" min="0" max="20" value={blur} onChange={(e) => setBlur(e.target.value)} />
+              <input
+              type="range"
+              min="0"
+              max="20"
+              value={blur}
+              onInput={(e) => setBlur(e.target.value)}
+            />
             </label>
             <label>
               Brightness:
-              <input type="range" min="0" max="200" value={brightness} onChange={(e) => setBrightness(e.target.value)} />
+              <input
+              type="range"
+              min="0"
+              max="200"
+              value={brightness}
+              onInput={(e) => setBrightness(e.target.value)}
+            />
             </label>
 
           </div>

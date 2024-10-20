@@ -1,45 +1,37 @@
-.app {
-  width: 100vw;
-  height: 20vh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-}
-
-.app__header {
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
-
-  h1 {
-    font-size: $font-size-md;
-  }
-  
-  p {
-    font-size: $font-size-xs;
-  }
-}
-
-button {
-  display: flex;
-  border: none;
+#root {
   margin: 0;
-  padding: 8px;
-  border-radius: 8px;
-  background-color: $grayscale__900;
-  color: $grayscale__400;
-  &:hover {
-    background-color: $grayscale__800;
-    cursor: pointer;
-  }
-
-  &:active {
-    outline: 2px solid $blue;
-    outline-offset: -2px;
-  }
+  width: 100%;
+}
+.app {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
 }
 
-@media (max-width: 768px) {
-  
+
+
+/* styles.css */
+// .file-list {
+//   margin-left: auto;
+//   display: flex;
+//   align-items: center;
+// }
+
+// .file-list select {
+//   margin-left: 5px;
+//   padding: 5px;
+//   cursor: pointer;
+// }
+
+
+.filter-panel {
+  position: relative;
+  height: 100vh;
+  background: white;
+  // border: 1px solid #ccc;
+  // box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.filter-button {
+  margin-left: auto;
 }

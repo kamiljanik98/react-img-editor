@@ -105,7 +105,7 @@
         transition: background 0.3s; // Smooth transition for hover
 
         &:hover {
-          background: lighten($blue, 10%); // Lighten thumb on hover
+          background:$blue; // Lighten thumb on hover
         }
       }
     }

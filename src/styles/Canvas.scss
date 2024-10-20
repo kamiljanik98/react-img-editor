@@ -1,7 +1,7 @@
 canvas {
   background-color: $grayscale__900;
-  // max-height: 90vh;
-  // max-width: 90vw;
+  min-height: 100vh;
+  min-width: 100vw;
 }
 
 .controls {

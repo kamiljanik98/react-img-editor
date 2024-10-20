@@ -1,0 +1,29 @@
+.canvas-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh; /* Full viewport height */
+  width: 100%;
+  overflow: hidden; /* Prevent overflow */
+  background-color: gray;
+}
+
+canvas {
+  max-width: 100%; /* Responsive width */
+  max-height: 100%; /* Responsive height */
+}
+/* styles.css */
+.zoom-controls {
+  background-color: red;
+  position: absolute;
+  top: 100px; /* Adjust based on your layout */
+  left: 100px; /* Adjust based on your layout */
+  display: flex;
+  gap: 10px;
+  z-index: 3;
+}
+
+.zoom-controls button {
+  padding: 5px 10px;
+  cursor: pointer;
+}

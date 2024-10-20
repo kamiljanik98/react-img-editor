@@ -1,5 +1,5 @@
 .navbar {
-  position: absolute;
+  position: relative;
   bottom: 20;
   left: 0;
   z-index: 3;
@@ -9,6 +9,7 @@
   align-items: center;
   color: $grayscale__300;
   height: 100vh;
+  padding: 1rem;
   // width: 7vh;
   border-right: 2px solid $grayscale__800;
   // border-right: 2px solid $grayscale__800;
@@ -16,6 +17,7 @@
 }
 
 .menu-icon {
+  padding: 1.05rem;
   display: flex;
   font-size: 24px;
   color: #fff;
@@ -28,7 +30,8 @@
 }
 
 .dropzone-button {
-  // padding: 0.75rem;
+  padding: 1.05rem;
+
   display: flex;
 
   &:hover {

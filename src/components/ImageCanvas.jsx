@@ -21,14 +21,14 @@ const ImageCanvas = ({ imageSrc, filter = [], canvasRef }) => {
       ctx.clearRect(0, 0, canvas.width, canvas.height);
     
       // Get the width and height of the window
-      const width = window.innerWidth;
-      const height = window.innerHeight;
+      const width = window.innerWidth / 2;
+      const height = window.innerHeight / 2;
     
       // Set canvas dimensions to fit the window
-      canvas.width = width / 1.2; // Adjust for any desired margins
-      canvas.height = height / 1.2; // Adjust for any desired margins
-      canvas.style.width = `${canvas.width / 2}px`;
-      canvas.style.height = `${canvas.height/ 2}px`;
+      canvas.width = width ; // Adjust for any desired margins
+      canvas.height = height ; // Adjust for any desired margins
+      canvas.style.width = `${canvas.width }px`;
+      canvas.style.height = `${canvas.height}px`;
     
       // Draw the image onto the canvas
       drawImage(ctx, image);

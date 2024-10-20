@@ -11,8 +11,11 @@ const Canvas = ({ image, blur, brightness }) => {
 
     img.src = image;
     img.onload = () => {
+      // Clear the canvas before drawing
       ctx.clearRect(0, 0, canvas.width, canvas.height);
-      ctx.filter = `blur(${blur}px) brightness(${brightness}%)`;
+      
+      // Set filter: note that brightness is multiplied by 0.01 for the percentage
+      ctx.filter = `blur(${blur}px) brightness(${brightness * 0.01})`;
       ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
     };
   }, [image, blur, brightness]);

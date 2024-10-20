@@ -35,6 +35,7 @@ const App = () => {
               Brightness:
               <input type="range" min="0" max="200" value={brightness} onChange={(e) => setBrightness(e.target.value)} />
             </label>
+
           </div>
         </>
       )}

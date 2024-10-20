@@ -1,106 +1,42 @@
 // src/App.jsx
-import { useState, useEffect } from 'react';
-import Navbar from './components/Navbar/Navbar'; // Adjust the path as necessary
-import InitialScreen from './components/InitialScreen/InitialScreen'; // Adjust the path as necessary
-import Canvas from './components/Canvas/Canvas'; // Adjust the path as necessary
-import FilterPanel from './components/FilterPanel/FilterPanel'; // Adjust the path as necessary
-import FilelistPanel from './components/FilelistPanel/FilelistPanel'; // Adjust the path as necessary
-import './App.scss';
+import { useState } from 'react';
+import { useDropzone } from 'react-dropzone';
+import Canvas from './components/Canvas/Canvas';
 
 const App = () => {
-  const [imageSrc, setImageSrc] = useState(null);
-  const [showFilters, setShowFilters] = useState(false);
-  const [showFilelist, setShowFilelist] = useState(false);
-  const [uploadedFiles, setUploadedFiles] = useState([]);
-  const [currentImageIndex, setCurrentImageIndex] = useState(0);
-  const [blurValue, setBlurValue] = useState(0);
-  const [brightnessValue, setBrightnessValue] = useState(100);
+  const [image, setImage] = useState(null);
+  const [blur, setBlur] = useState(0);
+  const [brightness, setBrightness] = useState(100);
 
-  useEffect(() => {
-    const storedFiles = JSON.parse(localStorage.getItem('uploadedFiles')) || [];
-    setUploadedFiles(storedFiles);
-  }, []);
-
-  useEffect(() => {
-    localStorage.setItem('uploadedFiles', JSON.stringify(uploadedFiles));
-  }, [uploadedFiles]);
-
-  const handleImageUpload = (src) => {
-    const newFile = { name: src.split('/').pop(), src };
-    setUploadedFiles((prevFiles) => [...prevFiles, newFile]);
-    setCurrentImageIndex(uploadedFiles.length); // Update to the new image index
-    setImageSrc(src);
+  const onDrop = (acceptedFiles) => {
+    const file = acceptedFiles[0];
+    const imgUrl = URL.createObjectURL(file);
+    setImage(imgUrl);
   };
 
-  const handleHomeClick = () => {
-    setImageSrc(null);
-    setShowFilters(false);
-    setShowFilelist(false); // Hide filelist when going home
-  };
-
-  const toggleFilters = () => {
-    setShowFilters((prev) => !prev);
-    setShowFilelist(false); // Ensure filelist is hidden
-  };
-
-  const toggleFilelist = () => {
-    setShowFilelist((prev) => !prev);
-    setShowFilters(false); // Ensure filters are hidden
-  };
-
-  const clearLocalStorage = () => {
-    localStorage.removeItem('uploadedFiles');
-    setUploadedFiles([]);
-    window.location.reload(); // Reload the page after clearing
-  };
-
-  const removeFile = (fileName) => {
-    const updatedFiles = uploadedFiles.filter(file => file.name !== fileName);
-    setUploadedFiles(updatedFiles);
-
-    if (updatedFiles.length === 0) {
-      setImageSrc(null); // Go to initial screen
-    } else {
-      // Switch to the next image if one exists
-      const nextIndex = currentImageIndex >= updatedFiles.length ? updatedFiles.length - 1 : currentImageIndex;
-      setCurrentImageIndex(nextIndex);
-      setImageSrc(updatedFiles[nextIndex].src); // Update imageSrc to the next image
-    }
-  };
+  const { getRootProps, getInputProps } = useDropzone({ onDrop });
 
   return (
-    <div className="app">
-      {imageSrc ? (
+    <div style={{ textAlign: 'center' }}>
+      <h1>Image Filter App</h1>
+      <div {...getRootProps()} style={{ border: '2px dashed #aaa', padding: '20px', cursor: 'pointer', marginBottom: '20px' }}>
+        <input {...getInputProps()} />
+        <p>Drag n drop an image here, or click to select one</p>
+      </div>
+      {image && (
         <>
-          <Navbar 
-            onImageUpload={handleImageUpload} 
-            onHomeClick={handleHomeClick} 
-            onToggleFilelist={toggleFilelist} 
-            onToggleFilters={toggleFilters} 
-            onClearLocalStorage={clearLocalStorage} 
-          />
-          <Canvas imageSrc={imageSrc} blurValue={blurValue} brightnessValue={brightnessValue} />
-          {showFilters && (
-            <FilterPanel 
-              blurValue={blurValue} 
-              setBlurValue={setBlurValue} 
-              brightnessValue={brightnessValue} 
-              setBrightnessValue={setBrightnessValue} 
-            />
-          )}
-          {showFilelist && (
-            <FilelistPanel 
-              uploadedFiles={uploadedFiles.filter(file => file && file.src)}
-              setImageSrc={setImageSrc}
-              onRemoveFile={removeFile} // Pass remove function
-              blurValue={blurValue} // Pass current blur value
-              brightnessValue={brightnessValue} // Pass current brightness value
-            />
-          )}
-
+          <Canvas image={image} blur={blur} brightness={brightness} />
+          <div>
+            <label>
+              Blur:
+              <input type="range" min="0" max="20" value={blur} onChange={(e) => setBlur(e.target.value)} />
+            </label>
+            <label>
+              Brightness:
+              <input type="range" min="0" max="200" value={brightness} onChange={(e) => setBrightness(e.target.value)} />
+            </label>
+          </div>
         </>
-      ) : (
-        <InitialScreen onImageUpload={handleImageUpload} />
       )}
     </div>
   );

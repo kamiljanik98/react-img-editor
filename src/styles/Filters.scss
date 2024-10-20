@@ -1,216 +1,113 @@
-// // FILTERS
-// .filters-overlay {
-//   padding: 12px;
-//   position: fixed;
-//   display: flex;
-//   flex-direction: column;
-//   align-items: center;
-//   height: 100vh;
-//   color: white;
-//   background-color: $grayscale__950;
-//   border-left: 2px solid $grayscale__900;
-//   right: 0;
-//   z-index: 2;
-//   gap: 12px;
+.filters-overlay {
+  padding: 20px;
+  position: fixed;
+  display: flex;
+  justify-content: start;
+  align-items: start;
+  flex-direction: column;
+  // align-items: center;
+  height: calc(100vh); // Adjust based on your header height
+  color: white;
+  background-color: $grayscale__950;
+  border-left: 2px solid $grayscale__900;
+  right: 0;
+  z-index: 2;
+  gap: 12px;
+  box-shadow: -5px 0 15px rgba(0, 0, 0, 0.3);
+}
+.slider__container {
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  width: 100%;
+  margin: 12px 0;
 
-//   box-shadow: -5px 0 15px rgba(0, 0, 0, 0.3); /* Left shadow */
-//   // overflow-y: auto;
-//   // top: 2;
-// }
-// .tools {
-//   display: flex;
-//   gap: 8px;
+  h3 {
+    font-size: $font-size-md; // Set this variable according to your typography settings
+    color: $grayscale__400; // Use a variable for the color
+    margin-bottom: 16px; // Space below the header
+  }
 
-//   select {
-//     color: $grayscale__400;
-//     font-size: $font-size-2xs;
-//     font-weight: 600;
-//     border: none;
-//     border-radius: 8px;
-//     padding: 12px;
-//     // padding: 12px 32px 12px 16px;
-//     text-align: left;
-//     appearance: none; /* Remove default arrow */
-//     background-color: $grayscale__900; /* Background color */
-//     // background-image: url('./public/icons/chevron-down.svg'); /* Custom arrow icon */
-//     background-repeat: no-repeat;
-//     background-position: right 6px center; /* Position the arrow */
-//     background-size: 16px; /* Adjust the size for better visibility */
-//     cursor: pointer; /* Change cursor to pointer */
+  .slider {
+    width: 100%; // Full width for sliders
+    margin-bottom: 20px; // Space between sliders
 
-//     &:hover {
-//       background-color: $grayscale__800;
-//     }
+    .slider-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 8px; // Space between header and slider
+      width: 100%; // Make it full width
 
-//     /* Focus state */
-//     &:focus {
-//       outline: 2px solid $blue;
-//       outline-offset: -2px;
-//       background-color: $grayscale__800; /* Optionally, change background on focus */
-//     }
-//   }
-// }
-// .slider__container {
-//   width: 85%;
-//   display: flex;
-//   gap: 12px;
-//   flex-direction: column;
-//   background-color: $grayscale__900;
-//   padding: 20px;
-//   border-radius: 8px;
-//   outline: 1.5px solid $grayscale__800;
-//   outline-offset: -1.5px;
-//   .header {
-//     display: flex;
-//     flex-direction: row;
-//     align-items: center;
-//     justify-content: space-between;
-//   }
-// }
-// .slider-header {
-//   display: flex;
-//   align-items: center;
-//   justify-content: space-between;
-//   label {
-//     font-weight: 300;
-//   }
-//   p {
-//     font-size: $font-size-4xs;
-//     text-align: center;
+      label {
+        font-size: $font-size-2xs; // Adjust according to your typography settings
+        color: $grayscale__400; // Use a variable for the color
+      }
 
-//     width: 26px;
-//     padding: 1px 2px;
-//     border: 1px solid $grayscale__400;
-//   }
-// }
-// .slider {
-//   display: flex;
-//   gap: 12px;
-//   flex-direction: column;
-//   label {
-//     font-size: $font-size-2xs;
-//   }
-//   p {
-//     font-size: $font-size-3xs;
-//   }
-// }
+      p {
+        font-size: $font-size-2xs; // Adjust according to your typography settings
+        color: $grayscale__300; // Use a variable for the color
+      }
+    }
 
+    input[type="range"] {
+      appearance: none; // Remove default styling in WebKit browsers
+      width: 100%; // Full width
+      height: 6px; // Track height
+      border-radius: 5px; // Rounded track
+      background: $grayscale__700; // Track color
+      outline: none; // Remove outline on focus
+      transition: background 0.3s; // Smooth transition for hover
 
+      &:hover {
+        background: $grayscale__600; // Darker color on hover
+      }
 
-// // @media (max-width: 768px) {
-// //   .app {
-// //     position: relative;
-// //     display: flex;
-// //     flex-direction: column;
-// //   }
+      // WebKit thumb styles
+      &::-webkit-slider-thumb {
+        -webkit-appearance: none; // Remove default thumb
+        appearance: none; // Remove default thumb
+        width: 14px; // Thumb width
+        height: 14px; // Thumb height
+        border-radius: 50%; // Round thumb
+        background: $blue; // Thumb color
+        cursor: pointer; // Pointer on hover
+        transition: background 0.3s; // Smooth transition for hover
+        outline: 2px solid $grayscale__400;
+        outline-offset: -1px;
 
-// //   .empty__dropzone {
-// //     height: 95vh;
-// //     background-color: $grayscale__900;
-// //     display: flex;
-// //     align-items: center;
-// //     justify-content: center;
-// //     position: relative;
-// //   }
-// //   .canvas__container {
-// //     canvas {
-// //       position: relative;
-// //       left: 0;
-// //       right: 0;
-// //     }
-// //   }
-// //   //   .filters-overlay {
-// //   //     width: 100vw;
-// //   //   position: fixed; /* Stick the element at the bottom */
-// //   //   bottom: 64px; /* Align at the bottom */
-// //   //   height: auto; /* Allow height to adapt */
-// //   //   max-height: 50vh; /* Limit height to 20% of the viewport */
-// //   //   overflow: overlay;
-// //   //   background-color: $grayscale__950; /* Optional: add a background to distinguish it from the canvas */
-// //   //   z-index: 2; /* Ensure it's above the canvas */
-// //   //   padding-bottom: 24px;
-// //   //   padding: 20px 0;
+        &:hover {
+          background: lighten($blue, 10%); // Lighten thumb on hover
+        }
+      }
 
-// //   //   &::-webkit-scrollbar {
-// //   //     width: 8px; /* Width of the scrollbar */
-// //   //   }
-// //   //   &::-webkit-scrollbar-track {
-// //   //     background-color: $grayscale__950; /* Background of the scrollbar track */
-// //   //   }
-// //   //   &::-webkit-scrollbar-thumb {
-// //   //     background-color: $grayscale__700; /* Color of the scrollbar thumb */
-// //   //     border-radius: 10px; /* Rounded corners for the scrollbar thumb */
-// //   //   }
-// //   // }
+      // Firefox thumb styles
+      &::-moz-range-thumb {
+        width: 16px; // Thumb width
+        height: 16px; // Thumb height
+        border-radius: 50%; // Round thumb
+        background: $blue; // Thumb color
+        cursor: pointer; // Pointer on hover
+        transition: background 0.3s; // Smooth transition for hover
 
-// //   .filters-overlay {
-// //     position: absolute;
-// //     bottom: 68px;
-// //     width: 100%; /* Full width */
-// //     height: 35vh; /* Fixed height */
-// //     overflow-y: auto; /* Enable vertical scrolling if content overflows */
-// //     padding: 10px; /* Internal padding for aesthetic spacing */
-// //     box-sizing: border-box; /* Includes padding in width/height calculation */
-// //     z-index: 3000;
-// //     /* Optional: background and text styles */
-// //     background-color: $grayscale__950;
+        &:hover {
+          background: lighten($blue, 10%); // Lighten thumb on hover
+        }
+      }
 
-// //     /* Smooth scrolling for a nice user experience */
-// //     scroll-behavior: smooth;
+      // Internet Explorer thumb styles
+      &::-ms-thumb {
+        width: 16px; // Thumb width
+        height: 16px; // Thumb height
+        border-radius: 50%; // Round thumb
+        background: $blue; // Thumb color
+        cursor: pointer; // Pointer on hover
+        transition: background 0.3s; // Smooth transition for hover
 
-// //     /* For Firefox: thin scrollbar */
-// //     scrollbar-width: thin;
-// //     scrollbar-color: #888 #f1f1f1;
-// //   }
-
-// //   /* WebKit Browsers (Chrome, Safari, Edge) */
-// //   .filters-overlay::-webkit-scrollbar {
-// //     width: 8px; /* Scrollbar width */
-// //   }
-
-// //   .filters-overlay::-webkit-scrollbar-track {
-// //     background-color: #f1f1f1; /* Scrollbar track (background) */
-// //   }
-
-// //   .filters-overlay::-webkit-scrollbar-thumb {
-// //     background-color: #888; /* Scrollbar thumb (draggable part) */
-// //     border-radius: 10px; /* Rounded corners for the scrollbar thumb */
-// //   }
-
-// //   .filters-overlay::-webkit-scrollbar-thumb:hover {
-// //     background-color: #555; /* Darker on hover */
-// //   }
-
-// //   /* Hiding scrollbars without preventing scrolling */
-// //   .filters-overlay.hidden-scrollbar {
-// //     scrollbar-width: none; /* For Firefox */
-// //     -ms-overflow-style: none; /* For IE/Edge */
-// //   }
-
-// //   .filters-overlay.hidden-scrollbar::-webkit-scrollbar {
-// //     display: none; /* Hide scrollbar for Chrome/Safari */
-// //   }
-
-// //   .navbar {
-// //     position: absolute;
-// //     width: 100%;
-// //     bottom: 0;
-// //     flex-direction: row;
-// //     height: 10vh;
-// //     border-right: none;
-// //     border-top: 2px solid $grayscale__800;
-// //   }
-
-// //    .filelist-overlay {
-// //     position: absolute;
-// //     top: 483px;
-// //     height: 20rem;
-// //     width: 100%; /* Full width */
-// //     overflow-y: auto; /* Enable vertical scrolling if content overflows */
-// //     padding: 10px; /* Internal padding for aesthetic spacing */
-// //     box-sizing: border-box; /* Includes padding in width/height calculation */
-// //     z-index: 3000;
-// //     /* Optional: background and text styles */
-// //     background-color: $grayscale__950;
-// //    }
-// // }
+        &:hover {
+          background: lighten($blue, 10%); // Lighten thumb on hover
+        }
+      }
+    }
+  }
+}

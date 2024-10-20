@@ -1,14 +1,45 @@
+.app {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 
-// .filelist-overlay {
-//   list-style: none;
-//   position: absolute;
-//   top: 483px;
-//   height: 20rem;
-//   width: 100%; /* Full width */
-//   overflow-y: auto; /* Enable vertical scrolling if content overflows */
-//   padding: 10px; /* Internal padding for aesthetic spacing */
-//   box-sizing: border-box; /* Includes padding in width/height calculation */
-//   z-index: 3000;
-//   /* Optional: background and text styles */
-//   background-color: $grayscale__950;
-//  }
+}
+
+.app__header {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+
+  h1 {
+    font-size: $font-size-md;
+  }
+  
+  p {
+    font-size: $font-size-xs;
+  }
+}
+
+button {
+  display: flex;
+  border: none;
+  margin: 0;
+  padding: 8px;
+  border-radius: 8px;
+  background-color: $grayscale__900;
+  color: $grayscale__400;
+  &:hover {
+    background-color: $grayscale__800;
+    cursor: pointer;
+  }
+
+  &:active {
+    outline: 2px solid $blue;
+    outline-offset: -2px;
+  }
+}
+
+@media (max-width: 768px) {
+  
+}

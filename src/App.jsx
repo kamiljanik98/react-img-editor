@@ -105,7 +105,7 @@ const App = () => {
   return (
     <div className="app">
       <nav className="navbar">
-        <div {...getRootProps({ className: "dropzone" })}>
+        <div {...getRootProps({ className: "dropzone-button" })}>
           <input {...getInputProps()} />
           <FiUpload size={24} />
         </div>
@@ -197,7 +197,7 @@ const App = () => {
           )}
         </>
       ) : (
-        <div {...getRootProps({ className: "empty__dropzone" })}>
+        <div {...getRootProps({ className: "empty__canvas" })}>
           <div className="status__message">
             <p>No Files Uploaded</p>
             <em>Max 5MB - total upload limit</em>

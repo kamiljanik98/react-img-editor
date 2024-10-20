@@ -1,0 +1,29 @@
+canvas {
+  background-color: $grayscale__900;
+  // max-height: 90vh;
+  // max-width: 90vw;
+}
+
+.controls {
+  background-color: $grayscale__950;
+  padding: 12px;
+  border-radius: 12px;
+  position: absolute;
+  top: 2%;
+  left: 50%;
+  z-index: 1;
+  transform: translate(-50%, 0);
+  display: flex;
+  gap: 8px;
+  color: white;
+  .zoom-button,
+  .download-button {
+    outline: 1.5px solid $grayscale__700;
+  
+    &:hover {
+      cursor: pointer;
+      background-color: $grayscale__700;
+      color: $grayscale__100;
+    }
+  }
+}

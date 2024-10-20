@@ -37,7 +37,7 @@ const Canvas = ({ imageSrc, blurValue, brightnessValue }) => {
   const drawImage = (context, img, width, height) => {
     context.clearRect(0, 0, context.canvas.width, context.canvas.height);
     context.filter = `blur(${blurValue}px) brightness(${brightnessValue}%)`;
-    
+    context.webkitFilter = `blur(${blurValue}px) brightness(${brightnessValue}%)`;    
     // Apply the scale for zoom
     const scaledWidth = width * scale;
     const scaledHeight = height * scale;

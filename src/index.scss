@@ -37,6 +37,7 @@ h3 {
   font-size: $font-size-base;
 }
 .app {
+  overflow: scroll;
   height: 100vh;
   display: flex;
   gap: 2rem;

@@ -1,5 +1,5 @@
 // src/Canvas.jsx
-import React, { useRef, useEffect } from 'react';
+import { useRef, useEffect } from 'react';
 
 const Canvas = ({ image, blur, brightness }) => {
   const canvasRef = useRef(null);
@@ -11,25 +11,23 @@ const Canvas = ({ image, blur, brightness }) => {
   
     img.src = image;
   
-    const drawImage = () => {
+    img.onload = () => {
       ctx.clearRect(0, 0, canvas.width, canvas.height);
+  
+      // Force canvas redraw on iOS by slightly adjusting the canvas size
+      canvas.style.display = 'none'; 
+      canvas.offsetHeight;  // Trigger reflow
+      canvas.style.display = 'block';
+  
       ctx.filter = `blur(${blur}px) brightness(${brightness * 0.01})`;
       ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
-    };
-  
-    img.onload = () => {
-      requestAnimationFrame(drawImage);
-      setTimeout(() => {
-        ctx.clearRect(0, 0, canvas.width, canvas.height);
-        ctx.filter = `blur(${blur}px) brightness(${brightness * 0.01})`;
-        ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
-      }, 10);
     };
   
     return () => {
       img.src = '';
     };
   }, [image, blur, brightness]);
+  
   
 
   return (

@@ -27,8 +27,8 @@ const ImageCanvas = ({ imageSrc, filter = [], canvasRef }) => {
       // Set canvas dimensions to fit the window
       canvas.width = width / 1.2; // Adjust for any desired margins
       canvas.height = height / 1.2; // Adjust for any desired margins
-      canvas.style.width = `${canvas.width}px`;
-      canvas.style.height = `${canvas.height}px`;
+      canvas.style.width = `${canvas.width / 2}px`;
+      canvas.style.height = `${canvas.height/ 2}px`;
     
       // Draw the image onto the canvas
       drawImage(ctx, image);

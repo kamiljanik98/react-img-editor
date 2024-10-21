@@ -4,8 +4,11 @@
 }
 .app {
   display: flex;
+  height: 100vh;
+  background-color: black;
   flex-direction: row;
   align-items: center;
+  justify-content: center;
 }
 
 
@@ -24,14 +27,39 @@
 // }
 
 
-.filter-panel {
-  position: relative;
-  height: 100vh;
-  background: white;
-  // border: 1px solid #ccc;
-  // box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+// .filter-panel {
+//   position: relative;
+//   display: flex;
+//   background: white;
+//   // border: 1px solid #ccc;
+//   // box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+// }
+button {
+  padding: 0;
+  margin: 0;
+  border: none;
+}
+.filter-button {
+  color: white;
+  background-color: transparent;
+}
+.filelist-button {
+  color: white;
+  background-color: transparent;
+}
+.clear-button {
+  color: white;
+  background-color: transparent;
+}
+.home-button {
+  color: white;
+  background-color: transparent;
 }
 
-.filter-button {
-  margin-left: auto;
+
+@media screen and (max-width: 768px) {
+  .app {
+    display: flex;
+    flex-direction: column;
+  }
 }

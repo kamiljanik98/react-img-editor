@@ -1,5 +1,5 @@
 // src/Navbar.jsx
-import { FiUpload, FiSliders } from "react-icons/fi";
+import { FiHome, FiUpload, FiSliders, FiList, FiRotateCcw  } from "react-icons/fi";
 import useFileUpload from "../hooks/useFileUpload";
 
 const Navbar = ({ onImageUpload, onHomeClick, onToggleFilters, onToggleFilelist, onClearLocalStorage }) => {
@@ -8,7 +8,7 @@ const Navbar = ({ onImageUpload, onHomeClick, onToggleFilters, onToggleFilelist,
   return (
     <div className="navbar">
       <button onClick={onHomeClick} className="home-button">
-        Home
+        <FiHome size={24}/>
       </button>
       <div {...getRootProps({ className: "dropzone-button" })}>
         <input
@@ -25,10 +25,10 @@ const Navbar = ({ onImageUpload, onHomeClick, onToggleFilters, onToggleFilelist,
         <FiSliders size={24} />
       </button>
       <button onClick={onToggleFilelist} className="filelist-button">
-        Filelist
+        <FiList size={24} />
       </button>
       <button onClick={onClearLocalStorage} className="clear-button">
-        Clear Local Storage
+          <FiRotateCcw  size={24}/>
       </button>
     </div>
   );

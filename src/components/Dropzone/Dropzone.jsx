@@ -1,7 +1,8 @@
-// src/InitialScreen.jsx
+// src/Dropzone.jsx
 import useFileUpload from '../hooks/useFileUpload'; // Adjust the path as necessary
+import styles from "./Dropzone.module.scss";
 
-const InitialScreen = ({ onImageUpload }) => {
+const Dropzone = ({ onImageUpload }) => {
   const { getInputProps, getRootProps } = useFileUpload();
 
   const handleUpload = (src) => {
@@ -9,7 +10,7 @@ const InitialScreen = ({ onImageUpload }) => {
   };
 
   return (
-    <div className="initial-screen">
+    <div className={styles.dropzone}>
       <div {...getRootProps({ className: "dropzone-button" })}>
         <input {...getInputProps()} onChange={(e) => {
           if (e.target.files.length > 0) {
@@ -22,4 +23,4 @@ const InitialScreen = ({ onImageUpload }) => {
   );
 };
 
-export default InitialScreen;
+export default Dropzone;

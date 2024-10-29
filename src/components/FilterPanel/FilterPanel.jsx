@@ -1,8 +1,10 @@
-// src/FilterPanel.jsx
+// src/components/FilterPanel/FilterPanel.jsx
+import React from 'react';
+import styles from './FilterPanel.module.scss'; // Import the CSS module
 
 const FilterPanel = ({ blurValue, setBlurValue, brightnessValue, setBrightnessValue }) => {
   return (
-    <div className="filter-panel">
+    <div className={styles.filterPanel}>
       <label>
         Blur:
         <input
@@ -10,7 +12,7 @@ const FilterPanel = ({ blurValue, setBlurValue, brightnessValue, setBrightnessVa
           min="0"
           max="20"
           value={blurValue}
-          onChange={(e) => setBlurValue(e.target.value)}
+          onChange={(e) => setBlurValue(Number(e.target.value))}
         />
         {blurValue}
       </label>
@@ -21,7 +23,7 @@ const FilterPanel = ({ blurValue, setBlurValue, brightnessValue, setBrightnessVa
           min="0"
           max="200"
           value={brightnessValue}
-          onChange={(e) => setBrightnessValue(e.target.value)}
+          onChange={(e) => setBrightnessValue(Math.min(200, Math.max(0, Number(e.target.value))))}
         />
         %
       </label>

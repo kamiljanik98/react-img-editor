@@ -3,21 +3,24 @@
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  height: 100vh; /* Full viewport height */
+  height: 100%; /* Full viewport height */
   width: 100%;
   background-color: gray;
 }
 
 canvas {
   width: 100%;
-  height: 100%; /* Responsive height */
+  height: auto; /* Use auto for height to maintain aspect ratio */
 }
+
 /* styles.css */
 .zoom-controls {
-    width: 100%;
+    position: absolute;
+    width: auto;
     gap: 8px;
+    padding: 12px;
     background-color: black;
-    // top: 5%; /* Adjust based on your layout */
+    top: 5%; /* Adjust based on your layout */
     // left: 55%; /* Adjust based on your layout */
     // transform: translateX(-50%);
     display: flex;
@@ -38,11 +41,8 @@ canvas {
 @media screen and (max-width: 768px) {
   .zoom-controls {
     gap: 8px;
+    position: relative;
     background-color: black;
-    // top: 15%; /* Adjust based on your layout */
-    // left: 50%; /* Adjust based on your layout */
     // transform: translateX(-50%);
-    display: flex;
-    z-index: 3;
   }
 }

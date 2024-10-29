@@ -1,7 +1,7 @@
 // src/App.jsx
 import { useState, useEffect } from 'react';
 import Navbar from './components/Navbar/Navbar'; // Adjust the path as necessary
-import InitialScreen from './components/InitialScreen/InitialScreen'; // Adjust the path as necessary
+import Dropzone from './components/Dropzone/Dropzone'; // Adjust the path as necessary
 import Canvas from './components/Canvas/Canvas'; // Adjust the path as necessary
 import FilterPanel from './components/FilterPanel/FilterPanel'; // Adjust the path as necessary
 import FilelistPanel from './components/FilelistPanel/FilelistPanel'; // Adjust the path as necessary
@@ -34,8 +34,7 @@ const App = () => {
 
   const handleHomeClick = () => {
     setImageSrc(null);
-    setShowFilters(false);
-    setShowFilelist(false); // Hide filelist when going home
+
   };
 
   const toggleFilters = () => {
@@ -71,37 +70,38 @@ const App = () => {
   return (
     <div className="app">
       {imageSrc ? (
-        <>
-          <Navbar 
-            onImageUpload={handleImageUpload} 
-            onHomeClick={handleHomeClick} 
-            onToggleFilelist={toggleFilelist} 
-            onToggleFilters={toggleFilters} 
-            onClearLocalStorage={clearLocalStorage} 
-          />
-          <Canvas imageSrc={imageSrc} blurValue={blurValue} brightnessValue={brightnessValue} />
-          {showFilters && (
-            <FilterPanel 
-              blurValue={blurValue} 
-              setBlurValue={setBlurValue} 
-              brightnessValue={brightnessValue} 
-              setBrightnessValue={setBrightnessValue} 
-            />
-          )}
-          {showFilelist && (
-            <FilelistPanel 
-              uploadedFiles={uploadedFiles.filter(file => file && file.src)}
-              setImageSrc={setImageSrc}
-              onRemoveFile={removeFile} // Pass remove function
-              blurValue={blurValue} // Pass current blur value
-              brightnessValue={brightnessValue} // Pass current brightness value
-            />
-          )}
+  <>
+    <Navbar 
+      onImageUpload={handleImageUpload} 
+      onHomeClick={handleHomeClick} 
+      onToggleFilelist={toggleFilelist} 
+      onToggleFilters={toggleFilters} 
+      onClearLocalStorage={clearLocalStorage} 
+    />
+    <Canvas imageSrc={imageSrc} blurValue={blurValue} brightnessValue={brightnessValue} />
 
-        </>
-      ) : (
-        <InitialScreen onImageUpload={handleImageUpload} />
-      )}
+    {showFilters && (
+      <FilterPanel 
+        blurValue={blurValue} 
+        setBlurValue={setBlurValue} 
+        brightnessValue={brightnessValue} 
+        setBrightnessValue={setBrightnessValue} 
+      />
+    )}
+
+    {showFilelist && (
+      <FilelistPanel 
+        uploadedFiles={uploadedFiles.filter(file => file && file.src)}
+        setImageSrc={setImageSrc}
+        onRemoveFile={removeFile}
+        blurValue={blurValue}
+        brightnessValue={brightnessValue}
+      />
+    )}
+  </>
+) : (
+  <Dropzone onImageUpload={handleImageUpload} />
+)}
     </div>
   );
 };

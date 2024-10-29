@@ -1,6 +1,5 @@
-// src/components/FilterPanel/FilterPanel.jsx
-import React from 'react';
 import styles from './FilterPanel.module.scss'; // Import the CSS module
+import PropTypes from 'prop-types';
 
 const FilterPanel = ({ blurValue, setBlurValue, brightnessValue, setBrightnessValue }) => {
   return (
@@ -29,6 +28,14 @@ const FilterPanel = ({ blurValue, setBlurValue, brightnessValue, setBrightnessVa
       </label>
     </div>
   );
+};
+
+FilterPanel.propTypes = {
+  setBlurValue: PropTypes.func.isRequired,
+setBrightnessValue: PropTypes.func.isRequired,
+
+  blurValue: PropTypes.number.isRequired, // New prop type for blurValue
+  brightnessValue: PropTypes.number.isRequired, // New prop type for brightnessValue
 };
 
 export default FilterPanel;

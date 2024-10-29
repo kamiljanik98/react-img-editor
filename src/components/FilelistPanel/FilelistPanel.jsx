@@ -1,7 +1,14 @@
-// src/components/FilelistPanel/FilelistPanel.jsx
-import React from 'react';
+import PropTypes from 'prop-types';
+import styles from "./FilelistPanel.module.scss";
 
-const FilelistPanel = ({ uploadedFiles, setImageSrc, onRemoveFile, blurValue, brightnessValue }) => {
+const FilelistPanel = ({ 
+  uploadedFiles, 
+  setImageSrc, 
+  onRemoveFile, 
+  blurValue, 
+  brightnessValue 
+}) => {
+  
   const handleDownload = (file) => {
     // Create a new canvas to apply filters
     const img = new Image();
@@ -29,7 +36,7 @@ const FilelistPanel = ({ uploadedFiles, setImageSrc, onRemoveFile, blurValue, br
   };
 
   return (
-    <div className="filelist-panel">
+    <div className={styles.filelistPanel}>
       <h3>Uploaded Files</h3>
       <ul>
         {uploadedFiles.length > 0 ? (
@@ -46,6 +53,20 @@ const FilelistPanel = ({ uploadedFiles, setImageSrc, onRemoveFile, blurValue, br
       </ul>
     </div>
   );
+};
+
+// Define PropTypes for the component
+FilelistPanel.propTypes = {
+  uploadedFiles: PropTypes.arrayOf(
+    PropTypes.shape({
+      name: PropTypes.string.isRequired,
+      src: PropTypes.string.isRequired,
+    })
+  ).isRequired,
+  setImageSrc: PropTypes.func.isRequired,
+  onRemoveFile: PropTypes.func.isRequired,
+  blurValue: PropTypes.number.isRequired, // New prop type for blurValue
+  brightnessValue: PropTypes.number.isRequired, // New prop type for brightnessValue
 };
 
 export default FilelistPanel;

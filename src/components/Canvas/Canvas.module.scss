@@ -1,4 +1,4 @@
-.canvas-container {
+.canvasContainer {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -8,13 +8,7 @@
   background-color: gray;
 }
 
-canvas {
-  width: 100%;
-  height: auto; /* Use auto for height to maintain aspect ratio */
-}
-
-/* styles.css */
-.zoom-controls {
+.zoomControls {
     position: absolute;
     width: auto;
     gap: 8px;
@@ -26,20 +20,24 @@ canvas {
     display: flex;
     justify-content: center;
     z-index: 3;
+    button {
+      display: flex;
+      border: none;
+      border-radius: 4px;
+      padding: 8px 8px;
+      background-color: rgb(27, 27, 27);
+      cursor: pointer;
+      color: white;
+    }
 }
 
-.zoom-controls button {
-  display: flex;
-  border: none;
-  border-radius: 4px;
-  padding: 8px 8px;
-  background-color: rgb(27, 27, 27);
-  cursor: pointer;
-  color: white;
+canvas {
+  width: 100%;
+  height: auto; /* Use auto for height to maintain aspect ratio */
 }
 
 @media screen and (max-width: 768px) {
-  .zoom-controls {
+  .zoomControls {
     gap: 8px;
     position: relative;
     background-color: black;

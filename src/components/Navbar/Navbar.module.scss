@@ -1,3 +1,5 @@
+@import "../../styles/variables.scss";
+
 .navbar {
   display: flex;
   left: 0;
@@ -24,4 +26,22 @@
     flex-direction: row;
     width: 100%;
   }
+}
+
+
+.filterButton {
+  color: white;
+  background-color: transparent;
+}
+.filelistButton {
+  color: white;
+  background-color: transparent;
+}
+.clearButton {
+  color: white;
+  background-color: transparent;
+}
+.homeButton {
+  color: white;
+  background-color: transparent;
 }

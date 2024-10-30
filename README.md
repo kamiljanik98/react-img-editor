@@ -3,7 +3,8 @@
 ![App Screenshot](./public/screenshot.png)
 
 ## Introduction
-This project is an image editing app built with React and CSS, utilizing the canvas element for photo manipulation. The application features a drag-and-drop file upload with a `Dropzone` component for easy image imports. After uploading, users can manage their images in the `FilelistPanel`, where they can view, select, and remove files.
+
+The application features a drag-and-drop file upload with a `Dropzone` component for easy image imports. After uploading, users can manage their images in the `FilelistPanel`, where they can view, select, and remove files.
 
 Users can edit their images on a customizable `Canvas` component, applying CSS filters like blur, brightness, contrast, and saturation. The `FilterPanel` allows real-time adjustments, making the editing process interactive. The app maintains an organized state using React hooks, ensuring a smooth user experience.
 

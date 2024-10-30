@@ -1,6 +1,6 @@
 import PropTypes from "prop-types";
 import styles from "./FilelistPanel.module.scss";
-import { FiDownloadCloud, FiTrash2, FiRotateCcw } from "react-icons/fi";
+import { FiDownloadCloud, FiTrash2 } from "react-icons/fi";
 
 const FilelistPanel = ({
   uploadedFiles,
@@ -8,7 +8,6 @@ const FilelistPanel = ({
   onRemoveFile,
   blurValue,
   brightnessValue,
-  clearLocalStorage,
 }) => {
   const handleDownload = (file) => {
     const img = new Image();
@@ -44,13 +43,12 @@ const FilelistPanel = ({
       <ul>
         {uploadedFiles.length > 0 ? (
           uploadedFiles.map((file, index) => (
-            <div className={styles.filelistItem} key={index}>
-              <button
-                className={styles.filelistItem}
-                onClick={() => setImageSrc(file.src)}
-              >
-                {file.name}
-              </button>
+            <div
+              onClick={() => setImageSrc(file.src)}
+              className={styles.filelistItem}
+              key={index}
+            >
+              <button>{file.name}</button>
               <div className={styles.fiellistActions}>
                 <button
                   className={styles.downloadButton}
@@ -68,12 +66,9 @@ const FilelistPanel = ({
             </div>
           ))
         ) : (
-          <li>No files uploaded.</li>
+          <p>No files uploaded... 👀</p>
         )}
       </ul>
-      <button className={styles.clearStorageButton} onClick={clearLocalStorage}>
-        Clear Storage <FiRotateCcw size={20} />
-      </button>
     </div>
   );
 };
@@ -90,7 +85,6 @@ FilelistPanel.propTypes = {
   onRemoveFile: PropTypes.func.isRequired,
   blurValue: PropTypes.number.isRequired,
   brightnessValue: PropTypes.number.isRequired,
-  clearLocalStorage: PropTypes.func.isRequired, // Include clearLocalStorage in PropTypes
 };
 
 export default FilelistPanel;

@@ -4,6 +4,7 @@ import Dropzone from "./components/Dropzone/Dropzone";
 import Canvas from "./components/Canvas/Canvas";
 import FilterPanel from "./components/FilterPanel/FilterPanel";
 import FilelistPanel from "./components/FilelistPanel/FilelistPanel";
+import useFilters from "./components/hooks/useFilters"; // Import custom hook
 import "./App.scss";
 
 const App = () => {
@@ -12,23 +13,42 @@ const App = () => {
   const [showFilelist, setShowFilelist] = useState(false);
   const [uploadedFiles, setUploadedFiles] = useState([]);
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
-  const [blurValue, setBlurValue] = useState(0);
-  const [brightnessValue, setBrightnessValue] = useState(100);
+  const { filterValues, setFilterValue } = useFilters(); // Use the custom hook
 
   useEffect(() => {
     const storedFiles = JSON.parse(localStorage.getItem("uploadedFiles")) || [];
+    console.log("Loaded Files from Local Storage:", storedFiles);
     setUploadedFiles(storedFiles);
+
+    if (storedFiles.length > 0) {
+      console.log("Setting image source to:", storedFiles[0].src);
+      setImageSrc(storedFiles[0].src);
+      setCurrentImageIndex(0);
+    }
   }, []);
 
+  // Update local storage when uploadedFiles changes
   useEffect(() => {
     localStorage.setItem("uploadedFiles", JSON.stringify(uploadedFiles));
   }, [uploadedFiles]);
 
-  const handleImageUpload = (src) => {
-    const newFile = { name: src.split("/").pop(), src };
-    setUploadedFiles((prevFiles) => [...prevFiles, newFile]);
-    setCurrentImageIndex(uploadedFiles.length); // Update to the new image index
-    setImageSrc(src);
+  const handleImageUpload = (file) => {
+    if (!(file instanceof Blob)) {
+      console.error("Uploaded file is not a valid Blob.");
+      return;
+    }
+
+    const reader = new FileReader();
+    reader.onloadend = () => {
+      const newFile = { name: file.name, src: reader.result }; // Save as Base64
+      setUploadedFiles((prevFiles) => {
+        const updatedFiles = [...prevFiles, newFile];
+        setImageSrc(reader.result); // Use Base64 as the image source
+        setCurrentImageIndex(updatedFiles.length - 1);
+        return updatedFiles;
+      });
+    };
+    reader.readAsDataURL(file); // Read the file as a data URL (Base64)
   };
 
   const handleHomeClick = () => {
@@ -45,27 +65,29 @@ const App = () => {
     setShowFilters(false); // Ensure filters are hidden
   };
 
-  const clearLocalStorage = () => {
-    localStorage.removeItem("uploadedFiles");
-    setUploadedFiles([]); // Clear the state as well
-    setImageSrc(null); // Optionally reset the image source to null
-  };
-
   const removeFile = (fileName) => {
     const updatedFiles = uploadedFiles.filter((file) => file.name !== fileName);
     setUploadedFiles(updatedFiles);
 
     if (updatedFiles.length === 0) {
-      setImageSrc(null); // Go to initial screen
+      setImageSrc(null);
+      setCurrentImageIndex(0);
     } else {
-      // Switch to the next image if one exists
       const nextIndex =
         currentImageIndex >= updatedFiles.length
           ? updatedFiles.length - 1
           : currentImageIndex;
       setCurrentImageIndex(nextIndex);
-      setImageSrc(updatedFiles[nextIndex].src); // Update imageSrc to the next image
+      setImageSrc(updatedFiles[nextIndex].src); // Ensure this line runs correctly
     }
+  };
+
+  console.log("Current Image Src:", imageSrc);
+
+  // Function to handle selecting an image from the file list
+  const handleSelectImageFromList = (src, index) => {
+    setImageSrc(src); // Set the selected image source
+    setCurrentImageIndex(index); // Set the current image index
   };
 
   return (
@@ -80,28 +102,21 @@ const App = () => {
           />
           <Canvas
             imageSrc={imageSrc}
-            blurValue={blurValue}
-            brightnessValue={brightnessValue}
+            filterValues={filterValues} // Pass filterValues
           />
-
           {showFilters && (
             <FilterPanel
-              clearLocalStorage={clearLocalStorage} // Pass clearLocalStorage here
-              blurValue={blurValue}
-              setBlurValue={setBlurValue}
-              brightnessValue={brightnessValue}
-              setBrightnessValue={setBrightnessValue}
+              filterValues={filterValues} // Pass filterValues
+              setFilterValue={setFilterValue} // Pass setFilterValue function
             />
           )}
-
           {showFilelist && (
             <FilelistPanel
               uploadedFiles={uploadedFiles.filter((file) => file && file.src)}
               setImageSrc={setImageSrc}
               onRemoveFile={removeFile}
-              blurValue={blurValue}
-              brightnessValue={brightnessValue}
-              clearLocalStorage={clearLocalStorage} // Pass clearLocalStorage here
+              filterValues={filterValues} // Pass filterValues
+              onSelectImage={handleSelectImageFromList} // New prop to handle selection
             />
           )}
         </>

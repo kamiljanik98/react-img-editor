@@ -1,3 +1,4 @@
+// src/components/Navbar/Navbar.jsx
 import PropTypes from "prop-types";
 import { FiHome, FiUpload, FiSliders, FiList } from "react-icons/fi";
 import useFileUpload from "../hooks/useFileUpload";
@@ -24,7 +25,8 @@ const Navbar = ({
           {...getInputProps()}
           onChange={(e) => {
             if (e.target.files.length > 0) {
-              onImageUpload(URL.createObjectURL(e.target.files[0]));
+              const file = e.target.files[0]; // Get the uploaded file
+              onImageUpload(file); // Pass the file directly to the parent
             }
           }}
         />

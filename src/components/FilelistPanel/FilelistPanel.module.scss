@@ -10,8 +10,8 @@
   padding: 24px;
   color: $grayscale__300;
   width: 100%;
-  gap: 12px;
-
+  gap: 24px;
+  
   button {
     font-size: $fs-xs;
     text-align: left;
@@ -28,7 +28,7 @@
     }
   }
 
-  // Scrollbar styling
+  // Custom scrollbar styling
   &::-webkit-scrollbar {
     width: 8px; // Width of the scrollbar
   }
@@ -40,7 +40,7 @@
   &::-webkit-scrollbar-thumb {
     background: $grayscale__500; // Thumb color
     border-radius: 8px; // Rounded edges
-    transition: background 0.3s; // Smooth transition for hover effect
+    transition: background 0.3s ease; // Smooth transition for hover effect
   }
 
   &::-webkit-scrollbar-thumb:hover {
@@ -51,7 +51,6 @@
   @media (min-width: 768px) {
     height: 100vh;
     width: 50%;
-    min-width: 25vw;
 
     .clearStorageButton {
       font-size: $fs-base;
@@ -69,7 +68,7 @@
   display: flex;
   justify-content: space-between;
   margin: 0; // Remove default margins
-  padding: 12px 16px; // Consolidated padding
+  padding: 24px; // Consolidated padding
   border-radius: 8px;
 
   &:nth-child(1) {
@@ -87,26 +86,6 @@
   gap: 24px;
 }
 
-.clearStorageButton {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  width: auto;
-  gap: 16px;
-  border-radius: 8px;
-  padding: 16px 24px;
-  background-color: $grayscale__900; // Adjust as necessary
-  border: none;
-  cursor: pointer;
-  color: $grayscale__500; // or any other color you want
-
-  &:hover {
-    transition: 0.2s;
-    background-color: $grayscale__1000;
-    color: red; // Change color on hover
-  }
-}
-
 .downloadButton {
   &:hover {
     color: $sec; // Change icon color on hover
@@ -118,7 +97,3 @@
     color: $warn; // Change icon color on hover
   }
 }
-
-// Optional: Uncomment and adjust if you want fixed height for the file list
-// min-height: 35vh;
-// max-height: 35vh; /* Adjust based on design requirements */

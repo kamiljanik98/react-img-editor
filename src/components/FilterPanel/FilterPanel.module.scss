@@ -3,24 +3,100 @@
 .filterPanel {
   display: flex;
   flex-direction: column;
+  justify-content: start;
   background-color: $grayscale__950;
-  height: 100vh;
-  color: $grayscale__100;
-  width: 40%;
+  color: $grayscale__400;
+  padding: 24px;
+  width: 25%;
+  gap: 36px;
+
+  // On desktop, set the height to 100% for full height panel
+  height: 100%;
+  overflow-y: auto;
+
+  @media (max-width: 768px) {
+    // For mobile and tablet screens
+    max-height: 29vh;
+    min-height: 29vh; // Restrict the height on smaller screens
+  }
+
+  // Custom scrollbar styling
+  &::-webkit-scrollbar {
+    width: 8px; // Width of the scrollbar
+  }
+
+  &::-webkit-scrollbar-track {
+    background: $grayscale__900; // Track color
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: $grayscale__500; // Thumb color
+    border-radius: 8px; // Rounded edges
+    transition: background 0.3s ease; // Smooth transition for hover effect
+  }
+
+  &::-webkit-scrollbar-thumb:hover {
+    background: $sec; // Change thumb color on hover
+  }
+
   label {
     font-size: 16px;
     display: flex;
-    align-items: center;
+    align-items: center; // Align to the center to avoid unnecessary height expansion
     justify-content: space-between;
+    flex-direction: column;
+    gap: 12px; // Add a slight gap between label text and input
 
     input[type="range"] {
       width: 100%;
-      margin-left: 10px;
+      margin: 0;
+      -webkit-appearance: none; // Remove default appearance for custom styles
+      appearance: none;
+      height: 6px;
+      background-color: $grayscale__700;
+      border-radius: 5px;
+      outline: none;
+      transition: background 0.3s ease;
+
+      &:hover {
+        background-color: $grayscale__600;
+      }
+
+      // Custom thumb styling for WebKit browsers
+      &::-webkit-slider-thumb {
+        -webkit-appearance: none; // Remove default appearance
+        appearance: none;
+        width: 20px;
+        height: 20px;
+        background-color: $grayscale__400; // Thumb color
+        border: 2px solid rgba($grayscale__950, 0.75);
+        border-radius: 50%;
+        cursor: pointer;
+        transition: background 0.3s ease;
+
+        &:hover {
+          background-color: darken($prim, 10%); // Darken on hover
+        }
+      }
     }
 
     input[type="number"] {
       width: 50px;
       margin-left: 10px;
     }
+  }
+}
+
+.filterHeader {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center; // Align content vertically
+  gap: 8px; // Add a small gap between text and value
+  :nth-child(1) {
+    font-size: $fs-xs;
+    text-align: center;
+    border: 1px solid $grayscale__500;
+    width: 44px;
   }
 }

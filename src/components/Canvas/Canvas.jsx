@@ -36,23 +36,20 @@ const Canvas = ({ imageSrc, filterValues }) => {
 
       context.drawImage(img, x, y, scaledWidth, scaledHeight);
     },
-    [
-      blurValue,
-      brightnessValue,
-      contrastValue,
-      saturationValue,
-      hueRotationValue,
-      grayscaleValue,
-      scale,
-      canvasSize,
-    ],
+    [blurValue, brightnessValue, contrastValue, saturationValue, hueRotationValue, grayscaleValue, scale, canvasSize]
   );
 
   useEffect(() => {
     const canvas = canvasRef.current;
     const context = canvas.getContext("2d");
-    const img = new Image();
 
+    if (!imageSrc) {
+      // Clear the canvas if there's no image
+      context.clearRect(0, 0, canvas.width, canvas.height);
+      return;
+    }
+
+    const img = new Image();
     img.src = imageSrc;
 
     img.onload = () => {
@@ -74,6 +71,8 @@ const Canvas = ({ imageSrc, filterValues }) => {
 
   // Effect to redraw the image when filter values or scale changes
   useEffect(() => {
+    if (!imageSrc) return; // Skip if there's no image source
+
     const canvas = canvasRef.current;
     const context = canvas.getContext("2d");
     const img = new Image();
@@ -91,7 +90,7 @@ const Canvas = ({ imageSrc, filterValues }) => {
 
       drawImage(context, img, newWidth, newHeight);
     };
-  }, [filterValues, scale, drawImage, imageSrc, canvasSize]); // Trigger redraw on filter or scale change
+  }, [filterValues, scale, drawImage, imageSrc, canvasSize]);
 
   const zoomIn = () => setScale((prev) => Math.min(prev + 0.1, 3)); // Limit max scale to 3x
   const zoomOut = () => setScale((prev) => Math.max(prev - 0.1, 0.5)); // Limit min scale to 0.5x
@@ -99,10 +98,10 @@ const Canvas = ({ imageSrc, filterValues }) => {
   return (
     <div className={styles.canvasContainer}>
       <div className={styles.zoomControls}>
-        <button onClick={zoomIn}>
+        <button aria-label="Zoom-in Button" onClick={zoomIn}>
           <FiZoomIn size={16} />
         </button>
-        <button onClick={zoomOut}>
+        <button aria-label="Zoom-out Button" onClick={zoomOut}>
           <FiZoomOut size={16} />
         </button>
       </div>

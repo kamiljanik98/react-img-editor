@@ -26,12 +26,33 @@ const FilelistPanel = ({
 
       // Convert canvas to a downloadable image
       const link = document.createElement("a");
-      link.href = canvas.toDataURL("image/png"); // Use PNG for better quality
-      link.download = file.name; // Use the file name for the download
+      link.href = canvas.toDataURL("image/png");
+      link.download = file.name;
       document.body.appendChild(link);
       link.click();
       document.body.removeChild(link);
     };
+  };
+
+  const handleRemoveFile = (fileName) => {
+    onRemoveFile(fileName); // Call the parent's remove function
+    // Check if there are any remaining files
+    if (uploadedFiles.length === 1) {
+      // Reload the page if this was the last file
+      window.location.reload();
+    } else {
+      // Optionally set the image source for the next file
+      const remainingFiles = uploadedFiles.filter(file => file.name !== fileName);
+      setImageSrc(remainingFiles[0].src); // Set the image to the first remaining file
+    }
+  };
+
+  // Function to truncate file names
+  const truncateFileName = (fileName, maxLength) => {
+    if (fileName.length > maxLength) {
+      return fileName.substring(0, maxLength) + "...";
+    }
+    return fileName;
   };
 
   return (
@@ -48,8 +69,8 @@ const FilelistPanel = ({
               className={styles.filelistItem}
               key={index}
             >
-              <button>{file.name}</button>
-              <div className={styles.fiellistActions}>
+              <button>{truncateFileName(file.name, 20)}</button> {/* Truncate to 20 characters */}
+              <div className={styles.filelistActions}>
                 <button
                   className={styles.downloadButton}
                   onClick={() => handleDownload(file)}
@@ -58,7 +79,7 @@ const FilelistPanel = ({
                 </button>
                 <button
                   className={styles.removeButton}
-                  onClick={() => onRemoveFile(file.name)}
+                  onClick={() => handleRemoveFile(file.name)} // Use the new handler
                 >
                   <FiTrash2 size={20} />
                 </button>

@@ -2,7 +2,7 @@
 import PropTypes from "prop-types";
 import { useDropzone } from "react-dropzone"; // Using react-dropzone for simplicity
 import styles from "./Dropzone.module.scss";
-import appIcon from '../../../public/icons/app-icon.svg';
+import appIcon from '/icons/app-icon.svg';
 
 const Dropzone = ({ onImageUpload }) => {
   const { getRootProps, getInputProps, isDragActive } = useDropzone({

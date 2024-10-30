@@ -21,10 +21,8 @@
       cursor: pointer;
     }
 
-    &:first-child {
       width: auto;
       font-size: $fs-xxs; // Use your defined variable $fs-xxs for clarity
-    }
   }
 
   // Custom scrollbar styling
@@ -80,7 +78,7 @@
   }
 }
 
-.fiellistActions {
+.filelistActions {
   display: flex;
   gap: 24px;
 }

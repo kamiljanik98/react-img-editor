@@ -4,11 +4,13 @@
 
 ## Introduction
 
-The application features a drag-and-drop file upload with a `Dropzone` component for easy image imports. After uploading, users can manage their images in the `FilelistPanel`, where they can view, select, and remove files.
+The application features a drag-and-drop file upload with a `Dropzone` component for easy image imports. 
 
-Users can edit their images on a customizable `Canvas` component, applying CSS filters like blur, brightness, contrast, and saturation. The `FilterPanel` allows real-time adjustments, making the editing process interactive. The app maintains an organized state using React hooks, ensuring a smooth user experience.
+Users can edit their images on a customizable `Canvas` component, applying CSS filters. The `FilterPanel` allows real-time adjustments, making the editing process interactive. The app maintains an organized state using React hooks, ensuring a smooth user experience.
 
 The **Navbar** component enhances navigation within the app, providing buttons for returning to the home view, toggling filters, uploading new images, and displaying the file list. Each button is designed for quick access, improving the overall user interface.
+
+Live Demo [here](https://rie-jk.vercel.app/).
 
 ## Features
 - Drag-and-Drop Image Upload

@@ -1,4 +1,4 @@
-#Image Editor
+# Image Editor
 
 ![App Screenshot](./public/screenshot.png)
 

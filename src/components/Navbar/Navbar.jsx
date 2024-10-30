@@ -1,17 +1,25 @@
-import PropTypes from 'prop-types';
-import { FiHome, FiUpload, FiSliders, FiList, FiRotateCcw } from "react-icons/fi";
+import PropTypes from "prop-types";
+import { FiHome, FiUpload, FiSliders, FiList } from "react-icons/fi";
 import useFileUpload from "../hooks/useFileUpload";
 import styles from "./Navbar.module.scss";
 
-const Navbar = ({ onImageUpload, onHomeClick, onToggleFilters, onToggleFilelist, onClearLocalStorage }) => {
+const Navbar = ({
+  onImageUpload,
+  onHomeClick,
+  onToggleFilters,
+  onToggleFilelist,
+}) => {
   const { getInputProps, getRootProps } = useFileUpload();
 
   return (
     <div className={styles.navbar}>
-      <button onClick={onHomeClick} className="home-button">
+      <button onClick={onHomeClick} className={styles.navbarButton}>
         <FiHome size={24} />
       </button>
-      <div {...getRootProps({ className: "dropzone-button" })}>
+      <button onClick={onToggleFilters} className={styles.navbarButton}>
+        <FiSliders size={24} />
+      </button>
+      <div {...getRootProps({ className: styles.navbarButton })}>
         <input
           {...getInputProps()}
           onChange={(e) => {
@@ -22,14 +30,8 @@ const Navbar = ({ onImageUpload, onHomeClick, onToggleFilters, onToggleFilelist,
         />
         <FiUpload size={24} />
       </div>
-      <button onClick={onToggleFilters} className={styles.filterButton}>
-        <FiSliders size={24} />
-      </button>
-      <button onClick={onToggleFilelist} className={styles.filelistButton}>
+      <button onClick={onToggleFilelist} className={styles.navbarButton}>
         <FiList size={24} />
-      </button>
-      <button onClick={onClearLocalStorage} className={styles.clearStorageButton}>
-        <FiRotateCcw size={24} />
       </button>
     </div>
   );
@@ -41,7 +43,6 @@ Navbar.propTypes = {
   onHomeClick: PropTypes.func.isRequired,
   onToggleFilters: PropTypes.func.isRequired,
   onToggleFilelist: PropTypes.func.isRequired,
-  onClearLocalStorage: PropTypes.func.isRequired,
 };
 
 export default Navbar;

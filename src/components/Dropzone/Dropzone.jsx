@@ -1,24 +1,33 @@
 // src/Dropzone.jsx
-import PropTypes from 'prop-types';
-import useFileUpload from '../hooks/useFileUpload'; // Adjust the path as necessary
+import PropTypes from "prop-types";
+import { useDropzone } from "react-dropzone"; // Using react-dropzone for simplicity
 import styles from "./Dropzone.module.scss";
 
 const Dropzone = ({ onImageUpload }) => {
-  const { getInputProps, getRootProps } = useFileUpload();
-
-  const handleUpload = (src) => {
-    onImageUpload(src);
-  };
+  const { getRootProps, getInputProps, isDragActive } = useDropzone({
+    onDrop: (acceptedFiles) => {
+      if (acceptedFiles.length > 0) {
+        const file = acceptedFiles[0];
+        const src = URL.createObjectURL(file);
+        onImageUpload(src);
+      }
+    },
+    accept: {
+      "image/*": [".jpg", ".png", ".bmp", ".tiff"], // Allowed formats
+    },
+  });
 
   return (
-      <div {...getRootProps({ className: styles.dropzone })}>
-        <input {...getInputProps()} onChange={(e) => {
-          if (e.target.files.length > 0) {
-            handleUpload(URL.createObjectURL(e.target.files[0]));
-          }
-        }} />
-        <p>Drag n drop some files here, or click to select files</p>
-      </div>
+    <div
+      {...getRootProps({
+        className: `${styles.dropzone} ${isDragActive ? styles.active : ""}`,
+      })}
+    >
+      <input {...getInputProps()} />
+      <img src="/public/icons/app-icon.svg" alt="image icon" />
+      <p>Drag & Drop your files...</p>
+      <em>Available formats: .jpg, .png, .bmp, .tiff</em>
+    </div>
   );
 };
 

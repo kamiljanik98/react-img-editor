@@ -1,7 +1,12 @@
-import styles from './FilterPanel.module.scss'; // Import the CSS module
-import PropTypes from 'prop-types';
+import styles from "./FilterPanel.module.scss"; // Import the CSS module
+import PropTypes from "prop-types";
 
-const FilterPanel = ({ blurValue, setBlurValue, brightnessValue, setBrightnessValue }) => {
+const FilterPanel = ({
+  blurValue,
+  setBlurValue,
+  brightnessValue,
+  setBrightnessValue,
+}) => {
   return (
     <div className={styles.filterPanel}>
       <label>
@@ -22,7 +27,11 @@ const FilterPanel = ({ blurValue, setBlurValue, brightnessValue, setBrightnessVa
           min="0"
           max="200"
           value={brightnessValue}
-          onChange={(e) => setBrightnessValue(Math.min(200, Math.max(0, Number(e.target.value))))}
+          onChange={(e) =>
+            setBrightnessValue(
+              Math.min(200, Math.max(0, Number(e.target.value))),
+            )
+          }
         />
         %
       </label>
@@ -32,7 +41,7 @@ const FilterPanel = ({ blurValue, setBlurValue, brightnessValue, setBrightnessVa
 
 FilterPanel.propTypes = {
   setBlurValue: PropTypes.func.isRequired,
-setBrightnessValue: PropTypes.func.isRequired,
+  setBrightnessValue: PropTypes.func.isRequired,
 
   blurValue: PropTypes.number.isRequired, // New prop type for blurValue
   brightnessValue: PropTypes.number.isRequired, // New prop type for brightnessValue

@@ -1,46 +1,59 @@
+@use "../../styles/variables" as *;
+
 .canvasContainer {
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  height: 100%; /* Full viewport height */
+  height: 100%;
   width: 100%;
-  background-color: gray;
+  background-color: $grayscale__900;
 }
 
 .zoomControls {
-    position: absolute;
-    width: auto;
-    gap: 8px;
-    padding: 12px;
-    background-color: black;
-    top: 5%; /* Adjust based on your layout */
-    // left: 55%; /* Adjust based on your layout */
-    // transform: translateX(-50%);
+  position: fixed;
+  top: 5%;
+  display: flex;
+  gap: 8px;
+  padding: 10px;
+  background-color: $grayscale__950;
+  border-radius: 12px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+
+  button {
+    outline: 1px solid $grayscale__700;
+    outline-offset: -1px;
     display: flex;
-    justify-content: center;
-    z-index: 3;
-    button {
-      display: flex;
-      border: none;
-      border-radius: 4px;
-      padding: 8px 8px;
-      background-color: rgb(27, 27, 27);
+    border: none;
+    border-radius: 8px;
+    padding: 8px;
+    background-color: $grayscale__900;
+    color: $grayscale__500;
+    transition:
+      background-color 0.2s,
+      color 0.2s,
+      transform 0.3s;
+
+    &:hover {
+      background-color: $grayscale__1000;
+      color: $grayscale__300;
+      transform: scale(1.05);
       cursor: pointer;
-      color: white;
     }
+  }
 }
 
 canvas {
+  border: 1px dashed $grayscale__700;
+  border-width: 1px 0;
   width: 100%;
-  height: auto; /* Use auto for height to maintain aspect ratio */
+  height: auto;
 }
 
 @media screen and (max-width: 768px) {
   .zoomControls {
-    gap: 8px;
+    top: -5%;
     position: relative;
-    background-color: black;
-    // transform: translateX(-50%);
+    transform: translateY(-100%);
   }
 }

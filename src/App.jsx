@@ -1,11 +1,10 @@
-// src/App.jsx
-import { useState, useEffect } from 'react';
-import Navbar from './components/Navbar/Navbar'; // Adjust the path as necessary
-import Dropzone from './components/Dropzone/Dropzone'; // Adjust the path as necessary
-import Canvas from './components/Canvas/Canvas'; // Adjust the path as necessary
-import FilterPanel from './components/FilterPanel/FilterPanel'; // Adjust the path as necessary
-import FilelistPanel from './components/FilelistPanel/FilelistPanel'; // Adjust the path as necessary
-import './App.scss';
+import { useState, useEffect } from "react";
+import Navbar from "./components/Navbar/Navbar";
+import Dropzone from "./components/Dropzone/Dropzone";
+import Canvas from "./components/Canvas/Canvas";
+import FilterPanel from "./components/FilterPanel/FilterPanel";
+import FilelistPanel from "./components/FilelistPanel/FilelistPanel";
+import "./App.scss";
 
 const App = () => {
   const [imageSrc, setImageSrc] = useState(null);
@@ -17,16 +16,16 @@ const App = () => {
   const [brightnessValue, setBrightnessValue] = useState(100);
 
   useEffect(() => {
-    const storedFiles = JSON.parse(localStorage.getItem('uploadedFiles')) || [];
+    const storedFiles = JSON.parse(localStorage.getItem("uploadedFiles")) || [];
     setUploadedFiles(storedFiles);
   }, []);
 
   useEffect(() => {
-    localStorage.setItem('uploadedFiles', JSON.stringify(uploadedFiles));
+    localStorage.setItem("uploadedFiles", JSON.stringify(uploadedFiles));
   }, [uploadedFiles]);
 
   const handleImageUpload = (src) => {
-    const newFile = { name: src.split('/').pop(), src };
+    const newFile = { name: src.split("/").pop(), src };
     setUploadedFiles((prevFiles) => [...prevFiles, newFile]);
     setCurrentImageIndex(uploadedFiles.length); // Update to the new image index
     setImageSrc(src);
@@ -34,7 +33,6 @@ const App = () => {
 
   const handleHomeClick = () => {
     setImageSrc(null);
-
   };
 
   const toggleFilters = () => {
@@ -48,20 +46,23 @@ const App = () => {
   };
 
   const clearLocalStorage = () => {
-    localStorage.removeItem('uploadedFiles');
-    setUploadedFiles([]);
-    window.location.reload(); // Reload the page after clearing
+    localStorage.removeItem("uploadedFiles");
+    setUploadedFiles([]); // Clear the state as well
+    setImageSrc(null); // Optionally reset the image source to null
   };
 
   const removeFile = (fileName) => {
-    const updatedFiles = uploadedFiles.filter(file => file.name !== fileName);
+    const updatedFiles = uploadedFiles.filter((file) => file.name !== fileName);
     setUploadedFiles(updatedFiles);
 
     if (updatedFiles.length === 0) {
       setImageSrc(null); // Go to initial screen
     } else {
       // Switch to the next image if one exists
-      const nextIndex = currentImageIndex >= updatedFiles.length ? updatedFiles.length - 1 : currentImageIndex;
+      const nextIndex =
+        currentImageIndex >= updatedFiles.length
+          ? updatedFiles.length - 1
+          : currentImageIndex;
       setCurrentImageIndex(nextIndex);
       setImageSrc(updatedFiles[nextIndex].src); // Update imageSrc to the next image
     }
@@ -70,38 +71,43 @@ const App = () => {
   return (
     <div className="app">
       {imageSrc ? (
-  <>
-    <Navbar 
-      onImageUpload={handleImageUpload} 
-      onHomeClick={handleHomeClick} 
-      onToggleFilelist={toggleFilelist} 
-      onToggleFilters={toggleFilters} 
-      onClearLocalStorage={clearLocalStorage} 
-    />
-    <Canvas imageSrc={imageSrc} blurValue={blurValue} brightnessValue={brightnessValue} />
+        <>
+          <Navbar
+            onImageUpload={handleImageUpload}
+            onHomeClick={handleHomeClick}
+            onToggleFilelist={toggleFilelist}
+            onToggleFilters={toggleFilters}
+          />
+          <Canvas
+            imageSrc={imageSrc}
+            blurValue={blurValue}
+            brightnessValue={brightnessValue}
+          />
 
-    {showFilters && (
-      <FilterPanel 
-        blurValue={blurValue} 
-        setBlurValue={setBlurValue} 
-        brightnessValue={brightnessValue} 
-        setBrightnessValue={setBrightnessValue} 
-      />
-    )}
+          {showFilters && (
+            <FilterPanel
+              clearLocalStorage={clearLocalStorage} // Pass clearLocalStorage here
+              blurValue={blurValue}
+              setBlurValue={setBlurValue}
+              brightnessValue={brightnessValue}
+              setBrightnessValue={setBrightnessValue}
+            />
+          )}
 
-    {showFilelist && (
-      <FilelistPanel 
-        uploadedFiles={uploadedFiles.filter(file => file && file.src)}
-        setImageSrc={setImageSrc}
-        onRemoveFile={removeFile}
-        blurValue={blurValue}
-        brightnessValue={brightnessValue}
-      />
-    )}
-  </>
-) : (
-  <Dropzone onImageUpload={handleImageUpload} />
-)}
+          {showFilelist && (
+            <FilelistPanel
+              uploadedFiles={uploadedFiles.filter((file) => file && file.src)}
+              setImageSrc={setImageSrc}
+              onRemoveFile={removeFile}
+              blurValue={blurValue}
+              brightnessValue={brightnessValue}
+              clearLocalStorage={clearLocalStorage} // Pass clearLocalStorage here
+            />
+          )}
+        </>
+      ) : (
+        <Dropzone onImageUpload={handleImageUpload} />
+      )}
     </div>
   );
 };

@@ -1,23 +1,30 @@
-@import "../../styles/variables.scss";
+@use "../../styles/variables" as *;
 
 .navbar {
+  position: relative;
   display: flex;
   left: 0;
   flex-direction: column;
   justify-content: space-evenly;
-  // bottom: 20;
-  // left: 0;
-  // z-index: 3;
-  // align-items: center;
-  // color: $grayscale__300;
-  min-width: 10vw;
+  align-items: center;
+  min-width: 8vw;
   height: 100vh;
-  // // width: 7vh;
-  // border-right: 2px solid $grayscale__800;
-  // // border-right: 2px solid $grayscale__800;
   background-color: $grayscale__950;
 }
 
+.navbarButton {
+  color: $grayscale__500;
+  padding: 12px;
+  border-radius: 6px;
+  background-color: $grayscale__950;
+  opacity: 0.5;
+  &:hover {
+    opacity: 1;
+    color: $prim;
+    background-color: $grayscale__1000;
+    cursor: pointer;
+  }
+}
 
 @media screen and (max-width: 768px) {
   .navbar {
@@ -25,23 +32,7 @@
     display: flex;
     flex-direction: row;
     width: 100%;
+    min-height: 10vh;
+    max-height: 10vh;
   }
-}
-
-
-.filterButton {
-  color: white;
-  background-color: transparent;
-}
-.filelistButton {
-  color: white;
-  background-color: transparent;
-}
-.clearButton {
-  color: white;
-  background-color: transparent;
-}
-.homeButton {
-  color: white;
-  background-color: transparent;
 }

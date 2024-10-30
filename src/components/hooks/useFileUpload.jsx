@@ -1,6 +1,6 @@
 // src/hooks/useFileUpload.jsx
-import { useState } from 'react';
-import { useDropzone } from 'react-dropzone';
+import { useState } from "react";
+import { useDropzone } from "react-dropzone";
 
 const useFileUpload = (initialFiles = []) => {
   const [acceptedFiles, setAcceptedFiles] = useState(initialFiles);
@@ -20,10 +20,16 @@ const useFileUpload = (initialFiles = []) => {
       return;
     }
 
-    setAcceptedFiles((prevFiles) => [...prevFiles, ...newFiles]);
+    // Create object URLs for new files
+    const filesWithSrc = newFiles.map((file) => ({
+      name: file.name,
+      src: URL.createObjectURL(file), // Create URL for the uploaded file
+    }));
 
-    if (newFiles[0]) {
-      setImageSrc(URL.createObjectURL(newFiles[0]));
+    setAcceptedFiles((prevFiles) => [...prevFiles, ...filesWithSrc]);
+
+    if (filesWithSrc[0]) {
+      setImageSrc(filesWithSrc[0].src); // Set the first uploaded file's URL as the image source
     }
 
     alert("Success!");
@@ -34,7 +40,7 @@ const useFileUpload = (initialFiles = []) => {
       errors.forEach((err) => {
         if (err.code === "file-invalid-type") {
           alert(
-            `Error: File "${file.name}" is not a valid format. Please upload a .jpg or .png file.`
+            `Error: File "${file.name}" is not a valid format. Please upload a .jpg or .png file.`,
           );
         }
       });
@@ -44,7 +50,15 @@ const useFileUpload = (initialFiles = []) => {
   const { getInputProps, getRootProps } = useDropzone({
     noKeyboard: true,
     multiple: true,
-    accept: { "image/png": [".png"], "image/jpg": [".jpg"] },
+    accept: {
+      "image/png": [".png"],
+      "image/jpeg": [".jpg", ".jpeg"], // Including both jpg and jpeg
+      "image/gif": [".gif"],
+      "image/bmp": [".bmp"],
+      "image/tiff": [".tiff", ".tif"],
+      "image/webp": [".webp"],
+      "image/svg+xml": [".svg"],
+    },
     onDropRejected,
     onDrop,
   });

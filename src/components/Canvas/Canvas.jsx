@@ -1,5 +1,5 @@
-import PropTypes from 'prop-types';
-import { useEffect, useRef, useState, useCallback } from 'react';
+import PropTypes from "prop-types";
+import { useEffect, useRef, useState, useCallback } from "react";
 import { FiZoomIn, FiZoomOut } from "react-icons/fi";
 import styles from "./Canvas.module.scss";
 
@@ -9,21 +9,24 @@ const Canvas = ({ imageSrc, blurValue, brightnessValue }) => {
   const [canvasSize] = useState({ width: 1200, height: 900 }); // Initial size
 
   // Define drawImage function with useCallback
-  const drawImage = useCallback((context, img, width, height) => {
-    context.clearRect(0, 0, context.canvas.width, context.canvas.height);
-    context.filter = `blur(${blurValue}px) brightness(${brightnessValue}%)`;
-    const scaledWidth = width * scale;
-    const scaledHeight = height * scale;
-    const x = (canvasSize.width - scaledWidth) / 2;
-    const y = (canvasSize.height - scaledHeight) / 2;
+  const drawImage = useCallback(
+    (context, img, width, height) => {
+      context.clearRect(0, 0, context.canvas.width, context.canvas.height);
+      context.filter = `blur(${blurValue}px) brightness(${brightnessValue}%)`;
+      const scaledWidth = width * scale;
+      const scaledHeight = height * scale;
+      const x = (canvasSize.width - scaledWidth) / 2;
+      const y = (canvasSize.height - scaledHeight) / 2;
 
-    context.drawImage(img, x, y, scaledWidth, scaledHeight);
-  }, [blurValue, brightnessValue, scale, canvasSize]);
+      context.drawImage(img, x, y, scaledWidth, scaledHeight);
+    },
+    [blurValue, brightnessValue, scale, canvasSize],
+  );
 
   // Effect to handle canvas drawing
   useEffect(() => {
     const canvas = canvasRef.current;
-    const context = canvas.getContext('2d');
+    const context = canvas.getContext("2d");
     const img = new Image();
 
     img.src = imageSrc;
@@ -53,8 +56,12 @@ const Canvas = ({ imageSrc, blurValue, brightnessValue }) => {
   return (
     <div className={styles.canvasContainer}>
       <div className={styles.zoomControls}>
-        <button onClick={zoomIn}><FiZoomIn size={16} /></button>
-        <button onClick={zoomOut}><FiZoomOut size={16} /></button>
+        <button onClick={zoomIn}>
+          <FiZoomIn size={16} />
+        </button>
+        <button onClick={zoomOut}>
+          <FiZoomOut size={16} />
+        </button>
       </div>
       <canvas ref={canvasRef} />
       {!imageSrc && <p>No image uploaded.</p>}
@@ -66,6 +73,5 @@ Canvas.propTypes = {
   imageSrc: PropTypes.string.isRequired,
   brightnessValue: PropTypes.number.isRequired,
   blurValue: PropTypes.number.isRequired,
-
 };
 export default Canvas;

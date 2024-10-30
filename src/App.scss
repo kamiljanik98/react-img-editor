@@ -1,3 +1,5 @@
+@use "./styles//variables" as *;
+
 #root {
   margin: 0;
   width: 100%;
@@ -5,57 +7,24 @@
 .app {
   display: flex;
   height: 100vh;
-  background-color: black;
+  background-color: $grayscale__950;
   flex-direction: row;
   align-items: center;
   justify-content: center;
 }
 
-
-
-/* styles.css */
-// .file-list {
-//   margin-left: auto;
-//   display: flex;
-//   align-items: center;
-// }
-
-// .file-list select {
-//   margin-left: 5px;
-//   padding: 5px;
-//   cursor: pointer;
-// }
-
-
-// .filter-panel {
-//   position: relative;
-//   display: flex;
-//   background: white;
-//   // border: 1px solid #ccc;
-//   // box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-// }
+h1 {
+  font-size: $fs_xl;
+}
+p {
+  font-size: $fs_base;
+}
 button {
   padding: 0;
   margin: 0;
   border: none;
-}
-.filter-button {
-  color: white;
   background-color: transparent;
 }
-.filelist-button {
-  color: white;
-  background-color: transparent;
-}
-.clear-button {
-  color: white;
-  background-color: transparent;
-}
-.home-button {
-  color: white;
-  background-color: transparent;
-}
-
 
 @media screen and (max-width: 768px) {
   .app {

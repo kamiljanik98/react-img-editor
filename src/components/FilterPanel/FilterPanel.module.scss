@@ -1,13 +1,12 @@
-// src/components/FilterPanel/FilterPanel.module.scss
+@use "../../styles/variables" as *;
+
 .filterPanel {
   display: flex;
   flex-direction: column;
-  gap: 10px;
-  padding: 10px;
-  background-color: #f9f9f9;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-
+  background-color: $grayscale__950;
+  height: 100vh;
+  color: $grayscale__100;
+  width: 40%;
   label {
     font-size: 16px;
     display: flex;

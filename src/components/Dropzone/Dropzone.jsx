@@ -32,7 +32,7 @@ const Dropzone = ({ onImageUpload }) => {
       })}
     >
       <input {...getInputProps()} />
-      <img src="/public/icons/app-icon.svg" alt="image icon" />
+      <img src="public/icons/app-icon.svg" alt="image icon" />
       <p>Drag & Drop your files...</p>
       <em>Available formats: .jpg, .png, .bmp, .tiff</em>
     </div>

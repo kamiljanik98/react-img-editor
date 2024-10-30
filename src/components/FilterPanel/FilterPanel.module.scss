@@ -7,50 +7,54 @@
   background-color: $grayscale__950;
   color: $grayscale__400;
   padding: 24px;
-  width: 25%;
   gap: 36px;
 
-  // On desktop, set the height to 100% for full height panel
+  // Full height panel for desktop
   height: 100%;
   overflow-y: auto;
+  width: 100%;
 
-  @media (max-width: 768px) {
-    // For mobile and tablet screens
-    max-height: 29vh;
-    min-height: 29vh; // Restrict the height on smaller screens
+  @media (min-width: 1200px) { // Desktop and larger screens
+    width: 35%;
+  }
+
+  @media (max-width: 768px) { // Mobile and tablet screens
+    max-height: 50vh;
+    min-height: 50vh; // Restrict the height on smaller screens
+    width: 100%; // Ensure full-width on mobile
   }
 
   // Custom scrollbar styling
   &::-webkit-scrollbar {
-    width: 8px; // Width of the scrollbar
+    width: 8px;
   }
 
   &::-webkit-scrollbar-track {
-    background: $grayscale__900; // Track color
+    background: $grayscale__900;
   }
 
   &::-webkit-scrollbar-thumb {
-    background: $grayscale__500; // Thumb color
-    border-radius: 8px; // Rounded edges
-    transition: background 0.3s ease; // Smooth transition for hover effect
+    background: $grayscale__500;
+    border-radius: 8px;
+    transition: background 0.3s ease;
   }
 
   &::-webkit-scrollbar-thumb:hover {
-    background: $sec; // Change thumb color on hover
+    background: $sec;
   }
 
   label {
     font-size: 16px;
     display: flex;
-    align-items: center; // Align to the center to avoid unnecessary height expansion
+    align-items: center;
     justify-content: space-between;
     flex-direction: column;
-    gap: 12px; // Add a slight gap between label text and input
+    gap: 12px;
 
     input[type="range"] {
       width: 100%;
       margin: 0;
-      -webkit-appearance: none; // Remove default appearance for custom styles
+      -webkit-appearance: none;
       appearance: none;
       height: 6px;
       background-color: $grayscale__700;
@@ -64,18 +68,18 @@
 
       // Custom thumb styling for WebKit browsers
       &::-webkit-slider-thumb {
-        -webkit-appearance: none; // Remove default appearance
+        -webkit-appearance: none;
         appearance: none;
         width: 20px;
         height: 20px;
-        background-color: $grayscale__400; // Thumb color
+        background-color: $grayscale__400;
         border: 2px solid rgba($grayscale__950, 0.75);
         border-radius: 50%;
         cursor: pointer;
         transition: background 0.3s ease;
 
         &:hover {
-          background-color: darken($prim, 10%); // Darken on hover
+          background-color: darken($prim, 10%);
         }
       }
     }
@@ -91,8 +95,9 @@
   width: 100%;
   display: flex;
   justify-content: space-between;
-  align-items: center; // Align content vertically
-  gap: 8px; // Add a small gap between text and value
+  align-items: center;
+  gap: 8px;
+
   :nth-child(1) {
     font-size: $fs-xs;
     text-align: center;

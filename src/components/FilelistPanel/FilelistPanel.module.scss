@@ -1,17 +1,17 @@
 @use "../../styles/variables" as *;
 
 .filelistPanel {
-  min-height: 29vh;
+  min-height: 50vh;
   overflow-y: auto; // Prevent height growth beyond max-height
   display: flex;
   flex-direction: column;
-  justify-content: flex-start; // Changed 'start' to 'flex-start'
+  justify-content: flex-start;
   background-color: $grayscale__950;
   padding: 24px;
   color: $grayscale__300;
   width: 100%;
   gap: 24px;
-  
+
   button {
     font-size: $fs-xs;
     text-align: left;
@@ -22,35 +22,34 @@
     }
 
     &:first-child {
-      // Changed to :first-child for clarity
       width: auto;
-      font-size: $fs_xxs;
+      font-size: $fs-xxs; // Use your defined variable $fs-xxs for clarity
     }
   }
 
   // Custom scrollbar styling
   &::-webkit-scrollbar {
-    width: 8px; // Width of the scrollbar
+    width: 8px;
   }
 
   &::-webkit-scrollbar-track {
-    background: $grayscale__900; // Track color
+    background: $grayscale__900;
   }
 
   &::-webkit-scrollbar-thumb {
-    background: $grayscale__500; // Thumb color
-    border-radius: 8px; // Rounded edges
-    transition: background 0.3s ease; // Smooth transition for hover effect
+    background: $grayscale__500;
+    border-radius: 8px;
+    transition: background 0.3s ease;
   }
 
   &::-webkit-scrollbar-thumb:hover {
-    background: $sec; // Change thumb color on hover
+    background: $sec;
   }
 
   // Medium Devices
   @media (min-width: 768px) {
     height: 100vh;
-    width: 50%;
+    width: 50%; // 50% width on medium screens
 
     .clearStorageButton {
       font-size: $fs-base;
@@ -59,7 +58,7 @@
 
   // Extra Large Devices
   @media (min-width: 1200px) {
-    width: 35%;
+    width: 35%; // 35% width on larger screens
   }
 }
 
@@ -67,8 +66,8 @@
   list-style: none;
   display: flex;
   justify-content: space-between;
-  margin: 0; // Remove default margins
-  padding: 24px; // Consolidated padding
+  margin: 0;
+  padding: 24px;
   border-radius: 8px;
 
   &:nth-child(1) {
@@ -77,7 +76,7 @@
   }
 
   &:hover {
-    background-color: $grayscale__1000; // Change background on li hover
+    background-color: $grayscale__1000;
   }
 }
 
@@ -88,12 +87,12 @@
 
 .downloadButton {
   &:hover {
-    color: $sec; // Change icon color on hover
+    color: $sec;
   }
 }
 
 .removeButton {
   &:hover {
-    color: $warn; // Change icon color on hover
+    color: $warn;
   }
 }

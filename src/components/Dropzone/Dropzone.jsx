@@ -2,6 +2,7 @@
 import PropTypes from "prop-types";
 import { useDropzone } from "react-dropzone"; // Using react-dropzone for simplicity
 import styles from "./Dropzone.module.scss";
+import appIcon from '../../../public/icons/app-icon.svg';
 
 const Dropzone = ({ onImageUpload }) => {
   const { getRootProps, getInputProps, isDragActive } = useDropzone({
@@ -32,7 +33,7 @@ const Dropzone = ({ onImageUpload }) => {
       })}
     >
       <input {...getInputProps()} />
-      <img src="public/icons/app-icon.svg" alt="image icon" />
+      <img src={appIcon} alt="image icon" />
       <p>Drag & Drop your files...</p>
       <em>Available formats: .jpg, .png, .bmp, .tiff</em>
     </div>

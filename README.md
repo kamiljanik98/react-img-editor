@@ -1,4 +1,4 @@
-# RCIE (React CSS Image Editor)
+#Image Editor
 
 ![App Screenshot](./public/screenshot.png)
 

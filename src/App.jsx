@@ -65,11 +65,12 @@ const App = () => {
     setShowFilters(false); // Ensure filters are hidden
   };
 
-  const removeFile = (fileName) => {
+  const handleRemoveFile = (fileName) => {
     const updatedFiles = uploadedFiles.filter((file) => file.name !== fileName);
     setUploadedFiles(updatedFiles);
-
+    
     if (updatedFiles.length === 0) {
+      window.location.reload();
       setImageSrc(null);
       setCurrentImageIndex(0);
     } else {
@@ -114,9 +115,9 @@ const App = () => {
             <FilelistPanel
               uploadedFiles={uploadedFiles.filter((file) => file && file.src)}
               setImageSrc={setImageSrc}
-              onRemoveFile={removeFile}
+              onRemoveFile={handleRemoveFile}
               filterValues={filterValues} // Pass filterValues
-              onSelectImage={handleSelectImageFromList} // New prop to handle selection
+              onSelectImage={handleSelectImageFromList} // Pass image selection handler
             />
           )}
         </>

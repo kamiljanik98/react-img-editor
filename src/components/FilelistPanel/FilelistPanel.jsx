@@ -6,51 +6,53 @@ const FilelistPanel = ({
   uploadedFiles,
   setImageSrc,
   onRemoveFile,
-  blurValue,
-  brightnessValue,
+  filterValues, // Accept filter values
 }) => {
-  const handleDownload = (file) => {
+  // Function to handle downloading the file with applied filters
+  const handleDownloadFile = (file, filterValues) => {
     const img = new Image();
-    img.src = file.src;
+    img.src = file.src; // Use file.src from uploadedFiles
+
     img.onload = () => {
       const canvas = document.createElement("canvas");
       const context = canvas.getContext("2d");
 
-      // Set canvas dimensions
+      // Set canvas dimensions to match the image
       canvas.width = img.width;
       canvas.height = img.height;
 
-      // Apply filters
-      context.filter = `blur(${blurValue}px) brightness(${brightnessValue}%)`;
+      // Apply filters from filterValues
+      context.filter = `blur(${filterValues.blurValue}px)
+                        brightness(${filterValues.brightnessValue}%)
+                        contrast(${filterValues.contrastValue}%)
+                        saturate(${filterValues.saturationValue}%)
+                        hue-rotate(${filterValues.hueRotationValue}deg)
+                        grayscale(${filterValues.grayscaleValue}%)`;
+
+      // Draw the image with the applied filters
       context.drawImage(img, 0, 0);
 
-      // Convert canvas to a downloadable image
+      // Create a download link for the processed image
       const link = document.createElement("a");
-      link.href = canvas.toDataURL("image/png");
-      link.download = file.name;
+      link.href = canvas.toDataURL("image/png"); // Get PNG data URL
+      link.download = file.name; // Use the file name from the file object
+
+      // Trigger the download
       document.body.appendChild(link);
       link.click();
       document.body.removeChild(link);
     };
   };
 
+  // Function to handle file removal
   const handleRemoveFile = (fileName) => {
-    onRemoveFile(fileName); // Call the parent's remove function
-    // Check if there are any remaining files
-    if (uploadedFiles.length === 1) {
-      // Reload the page if this was the last file
-      window.location.reload();
-    } else {
-      // Optionally set the image source for the next file
-      const remainingFiles = uploadedFiles.filter(file => file.name !== fileName);
-      setImageSrc(remainingFiles[0].src); // Set the image to the first remaining file
-    }
+    onRemoveFile(fileName); // Trigger the parent's remove logic
   };
 
-  // Function to truncate file names
+  // Function to truncate file names for display
   const truncateFileName = (fileName, maxLength) => {
     if (fileName.length > maxLength) {
-      return fileName.substring(0, maxLength) + "...";
+      return fileName.substring(0, maxLength) + "..."; // Truncate if too long
     }
     return fileName;
   };
@@ -65,7 +67,7 @@ const FilelistPanel = ({
         {uploadedFiles.length > 0 ? (
           uploadedFiles.map((file, index) => (
             <div
-              onClick={() => setImageSrc(file.src)}
+              onClick={() => setImageSrc(file.src)} // Set the clicked file as the image source
               className={styles.filelistItem}
               key={index}
             >
@@ -73,13 +75,13 @@ const FilelistPanel = ({
               <div className={styles.filelistActions}>
                 <button
                   className={styles.downloadButton}
-                  onClick={() => handleDownload(file)}
+                  onClick={() => handleDownloadFile(file, filterValues)} // Trigger file download with filters
                 >
                   <FiDownloadCloud size={20} />
                 </button>
                 <button
                   className={styles.removeButton}
-                  onClick={() => handleRemoveFile(file.name)} // Use the new handler
+                  onClick={() => handleRemoveFile(file.name)} // Remove file from list
                 >
                   <FiTrash2 size={20} />
                 </button>
@@ -87,7 +89,7 @@ const FilelistPanel = ({
             </div>
           ))
         ) : (
-          <p>No files uploaded... 👀</p>
+          <p>No files uploaded... 👀</p> // Display message if no files are uploaded
         )}
       </ul>
     </div>
@@ -100,12 +102,18 @@ FilelistPanel.propTypes = {
     PropTypes.shape({
       name: PropTypes.string.isRequired,
       src: PropTypes.string.isRequired,
-    }),
+    })
   ).isRequired,
   setImageSrc: PropTypes.func.isRequired,
   onRemoveFile: PropTypes.func.isRequired,
-  blurValue: PropTypes.number.isRequired,
-  brightnessValue: PropTypes.number.isRequired,
+  filterValues: PropTypes.shape({
+    blurValue: PropTypes.number.isRequired,
+    brightnessValue: PropTypes.number.isRequired,
+    contrastValue: PropTypes.number.isRequired,
+    saturationValue: PropTypes.number.isRequired,
+    hueRotationValue: PropTypes.number.isRequired,
+    grayscaleValue: PropTypes.number.isRequired,
+  }).isRequired, // Accept filterValues as a prop
 };
 
 export default FilelistPanel;

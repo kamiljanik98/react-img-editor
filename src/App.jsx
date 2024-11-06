@@ -17,11 +17,9 @@ const App = () => {
 
   useEffect(() => {
     const storedFiles = JSON.parse(localStorage.getItem("uploadedFiles")) || [];
-    console.log("Loaded Files from Local Storage:", storedFiles);
     setUploadedFiles(storedFiles);
 
     if (storedFiles.length > 0) {
-      console.log("Setting image source to:", storedFiles[0].src);
       setImageSrc(storedFiles[0].src);
       setCurrentImageIndex(0);
     }
@@ -83,7 +81,6 @@ const App = () => {
     }
   };
 
-  console.log("Current Image Src:", imageSrc);
 
   // Function to handle selecting an image from the file list
   const handleSelectImageFromList = (src, index) => {

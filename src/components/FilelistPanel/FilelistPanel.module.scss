@@ -2,7 +2,7 @@
 
 .filelistPanel {
   min-height: 50vh;
-  overflow-y: auto; // Prevent height growth beyond max-height
+  overflow-y: auto; 
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
@@ -22,7 +22,7 @@
     }
 
       width: auto;
-      font-size: $fs-xxs; // Use your defined variable $fs-xxs for clarity
+      font-size: $fs-xxs; 
   }
 
   // Custom scrollbar styling
@@ -47,7 +47,7 @@
   // Medium Devices
   @media (min-width: 768px) {
     height: 100vh;
-    width: 50%; // 50% width on medium screens
+    width: 50%; 
 
     .clearStorageButton {
       font-size: $fs-base;

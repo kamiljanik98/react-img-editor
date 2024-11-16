@@ -1,28 +1,27 @@
-// src/Dropzone.jsx
 import PropTypes from "prop-types";
-import { useDropzone } from "react-dropzone"; // Using react-dropzone for simplicity
+import { useDropzone } from "react-dropzone";
 import styles from "./Dropzone.module.scss";
 import appIcon from '/icons/app-icon.svg';
 
 const Dropzone = ({ onImageUpload }) => {
   const { getRootProps, getInputProps, isDragActive } = useDropzone({
     onDrop: (acceptedFiles) => {
-      console.log("Accepted Files:", acceptedFiles); // Log the accepted files
+      console.log("Accepted Files:", acceptedFiles); 
       if (acceptedFiles.length > 0) {
         const file = acceptedFiles[0];
-        console.log("Selected File:", file); // Log the selected file
+        console.log("Selected File:", file); 
 
-        // Check if the file is a Blob (File is a type of Blob)
+       
         if (file instanceof Blob) {
-          // Directly call onImageUpload with the file
+         
           onImageUpload(file);
         } else {
-          console.error("File is not a Blob."); // Log an error if not a Blob
+          console.error("File is not a Blob."); 
         }
       }
     },
     accept: {
-      "image/*": [".jpg", ".png", ".bmp", ".tiff"], // Allowed formats
+      "image/*": [".jpg", ".png", ".bmp", ".tiff"], 
     },
   });
 

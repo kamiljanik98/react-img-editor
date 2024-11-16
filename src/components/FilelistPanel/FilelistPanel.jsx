@@ -6,12 +6,11 @@ const FilelistPanel = ({
   uploadedFiles,
   setImageSrc,
   onRemoveFile,
-  filterValues, // Accept filter values
+  filterValues, 
 }) => {
-  // Function to handle downloading the file with applied filters
   const handleDownloadFile = (file, filterValues) => {
     const img = new Image();
-    img.src = file.src; // Use file.src from uploadedFiles
+    img.src = file.src; 
 
     img.onload = () => {
       const canvas = document.createElement("canvas");
@@ -21,7 +20,7 @@ const FilelistPanel = ({
       canvas.width = img.width;
       canvas.height = img.height;
 
-      // Apply filters from filterValues
+    
       context.filter = `blur(${filterValues.blurValue}px)
                         brightness(${filterValues.brightnessValue}%)
                         contrast(${filterValues.contrastValue}%)
@@ -29,30 +28,26 @@ const FilelistPanel = ({
                         hue-rotate(${filterValues.hueRotationValue}deg)
                         grayscale(${filterValues.grayscaleValue}%)`;
 
-      // Draw the image with the applied filters
       context.drawImage(img, 0, 0);
 
-      // Create a download link for the processed image
       const link = document.createElement("a");
-      link.href = canvas.toDataURL("image/png"); // Get PNG data URL
-      link.download = file.name; // Use the file name from the file object
+      link.href = canvas.toDataURL("image/png");
+      link.download = file.name; 
 
-      // Trigger the download
+    
       document.body.appendChild(link);
       link.click();
       document.body.removeChild(link);
     };
   };
 
-  // Function to handle file removal
   const handleRemoveFile = (fileName) => {
-    onRemoveFile(fileName); // Trigger the parent's remove logic
+    onRemoveFile(fileName); 
   };
 
-  // Function to truncate file names for display
   const truncateFileName = (fileName, maxLength) => {
     if (fileName.length > maxLength) {
-      return fileName.substring(0, maxLength) + "..."; // Truncate if too long
+      return fileName.substring(0, maxLength) + "...";
     }
     return fileName;
   };
@@ -67,21 +62,21 @@ const FilelistPanel = ({
         {uploadedFiles.length > 0 ? (
           uploadedFiles.map((file, index) => (
             <div
-              onClick={() => setImageSrc(file.src)} // Set the clicked file as the image source
+              onClick={() => setImageSrc(file.src)}
               className={styles.filelistItem}
               key={index}
             >
-              <button>{truncateFileName(file.name, 20)}</button> {/* Truncate to 20 characters */}
+              <button>{truncateFileName(file.name, 20)}</button> 
               <div className={styles.filelistActions}>
                 <button
                   className={styles.downloadButton}
-                  onClick={() => handleDownloadFile(file, filterValues)} // Trigger file download with filters
+                  onClick={() => handleDownloadFile(file, filterValues)} 
                 >
                   <FiDownloadCloud size={20} />
                 </button>
                 <button
                   className={styles.removeButton}
-                  onClick={() => handleRemoveFile(file.name)} // Remove file from list
+                  onClick={() => handleRemoveFile(file.name)} 
                 >
                   <FiTrash2 size={20} />
                 </button>
@@ -89,14 +84,13 @@ const FilelistPanel = ({
             </div>
           ))
         ) : (
-          <p>No files uploaded... 👀</p> // Display message if no files are uploaded
+          <p>No files uploaded... 👀</p>
         )}
       </ul>
     </div>
   );
 };
 
-// Define PropTypes for the component
 FilelistPanel.propTypes = {
   uploadedFiles: PropTypes.arrayOf(
     PropTypes.shape({

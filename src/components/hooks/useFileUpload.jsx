@@ -1,4 +1,3 @@
-// src/hooks/useFileUpload.jsx
 import { useState } from "react";
 import { useDropzone } from "react-dropzone";
 
@@ -20,16 +19,15 @@ const useFileUpload = (initialFiles = []) => {
       return;
     }
 
-    // Create object URLs for new files
     const filesWithSrc = newFiles.map((file) => ({
       name: file.name,
-      src: URL.createObjectURL(file), // Create URL for the uploaded file
+      src: URL.createObjectURL(file), 
     }));
 
     setAcceptedFiles((prevFiles) => [...prevFiles, ...filesWithSrc]);
 
     if (filesWithSrc[0]) {
-      setImageSrc(filesWithSrc[0].src); // Set the first uploaded file's URL as the image source
+      setImageSrc(filesWithSrc[0].src); 
     }
 
     alert("Success!");
@@ -52,7 +50,7 @@ const useFileUpload = (initialFiles = []) => {
     multiple: true,
     accept: {
       "image/png": [".png"],
-      "image/jpeg": [".jpg", ".jpeg"], // Including both jpg and jpeg
+      "image/jpeg": [".jpg", ".jpeg"],
       "image/gif": [".gif"],
       "image/bmp": [".bmp"],
       "image/tiff": [".tiff", ".tif"],

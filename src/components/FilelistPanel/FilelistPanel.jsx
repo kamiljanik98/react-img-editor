@@ -16,7 +16,6 @@ const FilelistPanel = ({
       const canvas = document.createElement("canvas");
       const context = canvas.getContext("2d");
 
-      // Set canvas dimensions to match the image
       canvas.width = img.width;
       canvas.height = img.height;
 
@@ -107,7 +106,7 @@ FilelistPanel.propTypes = {
     saturationValue: PropTypes.number.isRequired,
     hueRotationValue: PropTypes.number.isRequired,
     grayscaleValue: PropTypes.number.isRequired,
-  }).isRequired, // Accept filterValues as a prop
+  }).isRequired,
 };
 
 export default FilelistPanel;

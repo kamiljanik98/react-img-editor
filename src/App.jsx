@@ -4,7 +4,7 @@ import Dropzone from "./components/Dropzone/Dropzone";
 import Canvas from "./components/Canvas/Canvas";
 import FilterPanel from "./components/FilterPanel/FilterPanel";
 import FilelistPanel from "./components/FilelistPanel/FilelistPanel";
-import useFilters from "./components/hooks/useFilters"; // Import custom hook
+import useFilters from "./components/hooks/useFilters";
 import "./App.scss";
 
 const App = () => {
@@ -13,7 +13,7 @@ const App = () => {
   const [showFilelist, setShowFilelist] = useState(false);
   const [uploadedFiles, setUploadedFiles] = useState([]);
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
-  const { filterValues, setFilterValue } = useFilters(); // Use the custom hook
+  const { filterValues, setFilterValue } = useFilters();
 
   useEffect(() => {
     const storedFiles = JSON.parse(localStorage.getItem("uploadedFiles")) || [];
@@ -25,7 +25,6 @@ const App = () => {
     }
   }, []);
 
-  // Update local storage when uploadedFiles changes
   useEffect(() => {
     localStorage.setItem("uploadedFiles", JSON.stringify(uploadedFiles));
   }, [uploadedFiles]);
@@ -38,15 +37,15 @@ const App = () => {
 
     const reader = new FileReader();
     reader.onloadend = () => {
-      const newFile = { name: file.name, src: reader.result }; // Save as Base64
+      const newFile = { name: file.name, src: reader.result };
       setUploadedFiles((prevFiles) => {
         const updatedFiles = [...prevFiles, newFile];
-        setImageSrc(reader.result); // Use Base64 as the image source
+        setImageSrc(reader.result); 
         setCurrentImageIndex(updatedFiles.length - 1);
         return updatedFiles;
       });
     };
-    reader.readAsDataURL(file); // Read the file as a data URL (Base64)
+    reader.readAsDataURL(file);
   };
 
   const handleHomeClick = () => {
@@ -55,12 +54,12 @@ const App = () => {
 
   const toggleFilters = () => {
     setShowFilters((prev) => !prev);
-    setShowFilelist(false); // Ensure filelist is hidden
+    setShowFilelist(false); 
   };
 
   const toggleFilelist = () => {
     setShowFilelist((prev) => !prev);
-    setShowFilters(false); // Ensure filters are hidden
+    setShowFilters(false); 
   };
 
   const handleRemoveFile = (fileName) => {
@@ -77,15 +76,14 @@ const App = () => {
           ? updatedFiles.length - 1
           : currentImageIndex;
       setCurrentImageIndex(nextIndex);
-      setImageSrc(updatedFiles[nextIndex].src); // Ensure this line runs correctly
+      setImageSrc(updatedFiles[nextIndex].src);
     }
   };
 
 
-  // Function to handle selecting an image from the file list
   const handleSelectImageFromList = (src, index) => {
-    setImageSrc(src); // Set the selected image source
-    setCurrentImageIndex(index); // Set the current image index
+    setImageSrc(src); 
+    setCurrentImageIndex(index); 
   };
 
   return (
@@ -100,12 +98,12 @@ const App = () => {
           />
           <Canvas
             imageSrc={imageSrc}
-            filterValues={filterValues} // Pass filterValues
+            filterValues={filterValues} 
           />
           {showFilters && (
             <FilterPanel
-              filterValues={filterValues} // Pass filterValues
-              setFilterValue={setFilterValue} // Pass setFilterValue function
+              filterValues={filterValues} 
+              setFilterValue={setFilterValue} 
             />
           )}
           {showFilelist && (
@@ -113,8 +111,8 @@ const App = () => {
               uploadedFiles={uploadedFiles.filter((file) => file && file.src)}
               setImageSrc={setImageSrc}
               onRemoveFile={handleRemoveFile}
-              filterValues={filterValues} // Pass filterValues
-              onSelectImage={handleSelectImageFromList} // Pass image selection handler
+              filterValues={filterValues} 
+              onSelectImage={handleSelectImageFromList} 
             />
           )}
         </>

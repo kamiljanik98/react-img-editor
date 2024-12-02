@@ -15,7 +15,7 @@ const Canvas = ({ imageSrc, filterValues }) => {
 
   const canvasRef = useRef(null);
   const [scale, setScale] = useState(1);
-  const [canvasSize] = useState({ width: 1200, height: 900 }); // Initial size
+  const [canvasSize] = useState({ width: 1200, height: 900 })
 
   const drawImage = useCallback(
     (context, img, width, height) => {
@@ -44,7 +44,6 @@ const Canvas = ({ imageSrc, filterValues }) => {
     const context = canvas.getContext("2d");
 
     if (!imageSrc) {
-      // Clear the canvas if there's no image
       context.clearRect(0, 0, canvas.width, canvas.height);
       return;
     }
@@ -69,9 +68,8 @@ const Canvas = ({ imageSrc, filterValues }) => {
     };
   }, [imageSrc, drawImage, canvasSize]);
 
-  // Effect to redraw the image when filter values or scale changes
   useEffect(() => {
-    if (!imageSrc) return; // Skip if there's no image source
+    if (!imageSrc) return;
 
     const canvas = canvasRef.current;
     const context = canvas.getContext("2d");
@@ -92,8 +90,8 @@ const Canvas = ({ imageSrc, filterValues }) => {
     };
   }, [filterValues, scale, drawImage, imageSrc, canvasSize]);
 
-  const zoomIn = () => setScale((prev) => Math.min(prev + 0.1, 3)); // Limit max scale to 3x
-  const zoomOut = () => setScale((prev) => Math.max(prev - 0.1, 0.5)); // Limit min scale to 0.5x
+  const zoomIn = () => setScale((prev) => Math.min(prev + 0.1, 3)); 
+  const zoomOut = () => setScale((prev) => Math.max(prev - 0.1, 0.5));
 
   return (
     <div className={styles.canvasContainer}>

@@ -1,5 +1,4 @@
-// src/components/FilterPanel/FilterPanel.jsx
-import styles from "./FilterPanel.module.scss"; // Import the CSS module
+import styles from "./FilterPanel.module.scss";
 import PropTypes from "prop-types";
 
 const FilterPanel = ({ filterValues, setFilterValue }) => {
